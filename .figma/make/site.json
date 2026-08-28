@@ -1,0 +1,11 @@
+{
+  "title": "Ayush Anand — Portfolio",
+  "description": "Portfolio of Ayush Anand — Developer & Problem Solver.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

@@ -1,0 +1,89 @@
+#Build Info
+# Portfolio Site — Design & Build Brief
+
+**Owner:** Ayush Anand
+**Type:** Developer portfolio
+**Stack:** React, Node
+**Tone/aesthetic:** Editorial, minimal, cream (#f2ede4-ish) + black, bold oversized typography
+
+---
+
+## 1. Page Structure & Order
+
+1. **Hero / Intro**
+   - Name (large, bold display type), role/title, one-line value prop
+   - CTA buttons: "View Projects", "Contact Me"
+   - Current elements: tagline top-left, "Portfolio 2026" top-right, black-and-white portrait in circular dark backdrop (right side), contact strip in footer (email, website, location)
+   - **Fix needed:** align tagline copy with subhead — currently "Designing meaningful digital experiences" (design-leaning) vs "Developer & Problem Solver" (dev-leaning). Pick one lane or bridge intentionally.
+   - **Fix needed:** replace generic description ("intentional, impactful, and built to last") with something concrete — stack, niche, or outcome-based copy.
+   - **Decision:** remove the "A/A" monogram mark in the top-center — no real logo exists yet, empty space works fine with the strong typography already anchoring the layout.
+   - **Decision:** circle backdrop behind portrait does NOT need a color/tone fix — at close crop it reads as an intentional soft-vignette "emerging from shadow" effect, not a contrast failure. No change needed here.
+
+2. **Orientation Strip ("You Are Here" map)**
+   - Appears once, right as the hero scrolls out of view
+   - Plain text labels with numbering, e.g.:
+     1. Hero
+     2. Featured Projects
+     3. Skills / Tech Stack
+     4. About Me
+     5. Experience / Work History
+     6. Contact / Footer
+   - Fades/slides in as it enters viewport, then scrolls away naturally with the page — **not sticky, does not follow the user**. One-time orientation only, like a trailhead map.
+
+3. **Scroll Wheel (persistent side indicator)**
+   - Activates right after the orientation strip has been shown
+   - Thin vertical line at the far right edge of the page
+   - Black circular "wheel" that visually rotates as the user scrolls (continuous scroll-linked rotation)
+   - Number inside the wheel stays upright (counter-rotated relative to the wheel's spin) and **rolls/flips like an odometer** when a new section enters view
+   - Odometer roll: fast, ~150–250ms, direction matches scroll direction (rolls "up" revealing next number when scrolling down, reverses on scroll up)
+   - Number syncs to the same numbering scheme as the orientation strip (1–6)
+   - **Implementation notes:**
+     - Trigger number changes via Intersection Observer on section entry (not scroll-percentage math — percentage drifts if content changes)
+     - Keep wheel rotation and number roll as two independent transforms/layers — don't drive both off the same value
+     - Use `transform` (not `top`/`left`) for motion; wrap scroll listeners in `requestAnimationFrame` if not using CSS scroll-linked animations
+     - On mobile: simplify to a plain progress dot, or hide below a breakpoint — the right-edge wheel eats too much width on small screens
+
+4. **Featured Projects**
+   - Strongest 3–4 projects
+   - Each: screenshot/GIF, short description of what it does + what was used to build it, links to live demo + GitHub repo
+   - Projects were AI-assisted in parts of the build (React/Node), but architecture, UI/UX, and usage are original — no disclaimer needed on the site itself
+
+5. **Skills / Tech Stack**
+   - Concise, grouped list (Languages / Frontend / Backend / Tools) rather than one long list
+
+6. **About Me**
+   - Short, human bio — background, how you got into dev, current focus
+
+7. **Experience / Work History**
+   - Optional — brief role/company/dates/impact if relevant; can be lighter weight for early-career
+
+8. **Contact / Footer**
+   - Email, LinkedIn, GitHub, resume download — keep visible, not buried
+
+---
+
+## 2. Signature Interactions
+
+### A. Orange cursor-motion hover effect
+- On cursor movement, nearby text and elements (including the circle backdrop) shift to an **orange accent color**
+- Effect is **motion-dependent** — only active while the cursor is moving, not on static hover
+- Reasoning: ties back to the orange default theme used in one of the owner's other apps, without committing the whole site to an orange base theme
+- This is intended as the primary "delight" moment — other interactions (wheel, portrait reveal) should stay comparatively quieter/monochrome so they don't compete for attention
+
+### B. Portrait color reveal
+- Hero portrait is black-and-white by default
+- On hover, the same image reveals in full color
+
+---
+
+## 3. Open Items / Things Still To Do
+- Finalize hero tagline/subhead copy so they align
+- Rewrite the generic description line with something concrete
+- Build orientation strip (one-time reveal, non-sticky)
+- Build scroll wheel with odometer-style number transitions
+- Build orange cursor-motion hover effect
+- Build portrait color-reveal-on-hover
+- Populate Projects, Skills, About, Experience, Contact sections with real content
+
+
+after finishing the 

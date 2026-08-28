@@ -1,0 +1,142 @@
+# Portfolio Site — Final Content Brief
+
+**Owner:** Ayush Anand
+**Type:** Developer portfolio
+**Stack:** React, Node
+**Aesthetic:** Editorial, minimal, cream + black, bold oversized typography
+
+> This document supersedes the structure notes from the earlier brief with real, final content. Interaction/animation specs (orange hover, portrait reveal) from the earlier brief still apply as-is unless updated below.
+
+---
+
+## 1. Hero (locked — do not alter wording)
+
+- **Top-left tagline:** "Designing meaningful digital experiences"
+- **Top-right:** "Portfolio 2026"
+- **Name:** AYUSH ANAND (large display type)
+- **Subhead:** "Developer & Problem Solver"
+- **Description:** "I build digital experiences that are intentional, impactful, and built to last."
+- **Footer strip:** Email — hello@ayushanand.dev · Website — ayushanand.dev · Location — India
+- **Bottom-right CTA box:** "Let's build something great together"
+- A/A monogram: removed (per earlier decision, empty center space)
+
+---
+
+## 2. Orientation Strip (one-time "You Are Here" map)
+
+Appears once as hero scrolls out of view. Non-sticky, scrolls away naturally with the page.
+
+Labels + numbering:
+1. Hero
+2. Featured Projects
+3. Skills / Tech Stack
+4. About Me
+5. Experience / Work History
+6. Contact / Footer
+
+---
+
+## 3. Scroll Wheel (persistent indicator) — updated spec
+
+- **Appears:** at the same moment the orientation strip appears (not after — simultaneous)
+- **Line:** thin black vertical line fixed to the right edge of the viewport, running only through the **middle 80%** of the edge (leaves top 10% and bottom 10% uncovered)
+- **Wheel:** small black circular wheel, first appears at the **20% mark** down the line
+- **Center dot:** a fixed **orange dot** at the center of the wheel (static accent — separate from the cursor-motion hover effect elsewhere on the site)
+- **Numbers:** 1–6, synced to the orientation strip's numbering, displayed on the wheel and kept upright (counter-rotated against the wheel's spin)
+- **On scroll:**
+  - Wheel **rotates** continuously (spinning motion tied to scroll)
+  - Wheel also **translates downward along the line**, tracking scroll progress from its 20% starting point toward the bottom of the line
+  - Number changes with an **odometer roll** (~150–250ms), direction matching scroll direction (rolls up revealing the next number when scrolling down, reverses on scroll up)
+  - Number switches when the **next section** (matching the strip's numbering) enters view — drive this off Intersection Observer per section, not raw scroll percentage
+- **Mobile:** simplify to a small static progress dot or hide below a breakpoint — the right-edge wheel won't fit well on narrow screens
+
+---
+
+## 4. Featured Projects
+
+### ChibiDesk — Desktop Customization & Overlay Manager
+**Jul 2026 – Aug 2026** · [GitHub link — add URL]
+
+Architected a lightweight Windows desktop customization application using Tauri, Rust, TypeScript, and WebView2, letting users manage and place animated visual overlays directly on the desktop.
+
+- Multi-format asset management and real-time animated desktop overlays
+- Windows cursor customization system spanning 14 cursor types, with configurable color, scale, opacity, and visual effects
+- Live runtime monitoring and contextual system panels — process CPU/memory usage, FPS, uptime, process info, render details, and active overlay state
+
+**Tech stack:** Tauri, Rust, TypeScript, WebView2, Windows APIs, HTML/CSS, Lucide Icons
+
+---
+
+### EcoTrack Pulse — Carbon Footprint Tracking Platform
+**Jun 2025 – Jul 2025** · [GitHub link — add URL]
+
+A responsive carbon-footprint tracking platform built around an interactive sustainability dashboard.
+
+- Multi-stage onboarding and lifestyle/commuting data collection flow
+- AI-powered sustainability recommendations with CO₂ and cost-saving insights
+- Interactive impact visualizations across transport, food, energy, and waste
+- Scroll-driven landing experience with smooth UI transitions
+
+**Tech stack:** HTML, Tailwind CSS, JavaScript, Responsive Web Design
+
+---
+
+**End-of-section note:** add a low-key "More projects coming soon" card or CTA linking to your GitHub profile, since more work is on the way.
+
+---
+
+## 5. Skills / Tech Stack
+
+| Category | Items |
+|---|---|
+| **Languages** | Java, JavaScript, C, C++, Python |
+| **Technologies** | HTML, CSS, Node.js, React, Tailwind CSS, Rust |
+| **Databases / Tools** | MySQL, MongoDB, Git, GitHub, Figma |
+| **Soft Skills** | Problem solving, Team collaboration, Time management, Adaptability |
+
+---
+
+## 6. About Me
+
+**Facts to include:**
+- 2nd-year student at Lovely Professional University (LPU)
+- Current CGPA: 8.42
+- From Bihar, India
+
+**Narrative thread (draft copy — adjust to your voice):**
+
+> I'm a second-year student at Lovely Professional University from Bihar, India, currently holding a CGPA of 8.42. What actually pulled me into building things was frustration — realizing how many tools people pay for are things that could genuinely be built in a day or two, especially now, in the AI era. I wanted something I couldn't afford, so instead of paying for it, I built it myself. That's more or less how this whole path started, and it's still what pulls me toward every new project — solving a real problem, cheaply and directly.
+
+*(Feel free to adjust the tone — this keeps your original points intact: the AI-era observation, the "paying for what could be built" frustration, and the personal origin story.)*
+
+---
+
+## 7. Experience
+
+**One World — Certificate**
+A university-wide cultural event. Worked with a team of 50+ students over a month to represent a country through cultural setups, performances, and a university-wide rally.
+
+**AWS Workshop — Certificate**
+Attended an AWS Cloud Computing workshop covering cloud fundamentals, AWS services, and practical applications of cloud computing.
+
+**Hackathons**
+Participated in 6+ hackathons, working in teams of 3–6 on software and hardware projects, typically competing against 50–100+ teams. Secured 4th place in one.
+
+**Microsoft Student Ambassador (2026)**
+Recognized as a Microsoft Student Ambassador in 2026.
+
+---
+
+## 8. Contact / Footer
+
+Currently confirmed: email, website, location (see Hero section).
+
+**Gap to fill:** the original structure plan called for LinkedIn and GitHub links here too — add these if you have them, since recruiters will look for both.
+
+---
+
+## Open Items
+- [ ] Add real GitHub links for ChibiDesk and EcoTrack Pulse
+- [ ] Add LinkedIn + GitHub profile links to Contact/Footer
+- [ ] Confirm/adjust the About Me paragraph tone before publishing
+- [ ] Decide on the "more projects coming soon" treatment (card, text CTA, or link only)

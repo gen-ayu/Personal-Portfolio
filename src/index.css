@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import 'tailwindcss';
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #F3EFE9;
+    color: #111111;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #F3EFE9;
+  }
+}
+
+/* ── Typography Utility Helpers ── */
+.font-display {
+  font-family: 'Oswald', sans-serif;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+
+
+/* ── Circular Cursor Reveal Layer (Orange Tint Overlay) ── */
+.reveal-layer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  z-index: 50;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+/* Default elements (black/white text, neutral borders, icons) turn orange in reveal */
+.reveal-layer-overlay,
+.reveal-layer-overlay * {
+  color: #FF5722 !important;
+  border-color: #FF5722 !important;
+}
+
+.reveal-layer-overlay svg {
+  stroke: #FF5722 !important;
+  color: #FF5722 !important;
+}
+
+.reveal-layer-overlay hr {
+  border-color: #FF5722 !important;
+}
+
+/* Decorative divider lines turn orange */
+.reveal-layer-overlay .hero-underline,
+.reveal-layer-overlay .section-divider-line {
+  background-color: #FF5722 !important;
+}
+
+/* Hero backdrop circle behind portrait turns solid orange */
+.reveal-layer-overlay .hero-backdrop-circle {
+  background-color: #FF5722 !important;
+}
+
+/* ── Inversion Rule ──────────────────────────────────────────────────
+   Wherever an element is ORANGE (#FF5722) by default, that element
+   turns BLACK (#111111) when revealed under the cursor hover lens.
+   ────────────────────────────────────────────────────────────────── */
+.reveal-layer-overlay [class*="text-[#FF5722]"],
+.reveal-layer-overlay [class*="text-\\[\\#FF5722\\]"],
+.reveal-layer-overlay [class*="text-[#ff5722]"] {
+  color: #111111 !important;
+}
+
+.reveal-layer-overlay [class*="bg-[#FF5722]"],
+.reveal-layer-overlay [class*="bg-\\[\\#FF5722\\]"],
+.reveal-layer-overlay [class*="bg-[#ff5722]"] {
+  background-color: #111111 !important;
+}
+
+.reveal-layer-overlay [class*="border-[#FF5722]"],
+.reveal-layer-overlay [class*="border-\\[\\#FF5722\\]"],
+.reveal-layer-overlay [class*="border-[#ff5722]"] {
+  border-color: #111111 !important;
+}
+
+/* Specific to Orientation Strip: default orange turns WHITE for crisp contrast on dark background */
+.reveal-layer-overlay #orientation-strip [class*="text-[#FF5722]"],
+.reveal-layer-overlay #orientation-strip [class*="text-\\[\\#FF5722\\]"],
+.reveal-layer-overlay #orientation-strip [class*="text-[#ff5722]"] {
+  color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay #orientation-strip [class*="bg-[#FF5722]"],
+.reveal-layer-overlay #orientation-strip [class*="bg-\\[\\#FF5722\\]"],
+.reveal-layer-overlay #orientation-strip [class*="bg-[#ff5722]"] {
+  background-color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay #orientation-strip [class*="border-[#FF5722]"],
+.reveal-layer-overlay #orientation-strip [class*="border-\\[\\#FF5722\\]"],
+.reveal-layer-overlay #orientation-strip [class*="border-[#ff5722]"] {
+  border-color: #FFFFFF !important;
+}
+
+/* ── Scroll Wheel Specific Inversion in Reveal Layer ─────────────────
+   The black of the scroll wheel remains black,
+   the orange turns white, and the white turns orange.
+   ────────────────────────────────────────────────────────────────── */
+.reveal-layer-overlay .scroll-wheel-disc {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+
+.reveal-layer-overlay .scroll-wheel-number {
+  color: #FF5722 !important;
+}
+
+.reveal-layer-overlay .scroll-wheel-spoke {
+  background-color: #FF5722 !important;
+}
+
+.reveal-layer-overlay .scroll-wheel-pip {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 3px #FFFFFF !important;
+}
+
+.reveal-layer-overlay .scroll-wheel-track {
+  background-color: #FF5722 !important;
+}
+
+/* Tint SVG icons to match #FF5722 */
+.reveal-layer-overlay img[src$=".svg"] {
+  filter: invert(41%) sepia(94%) saturate(2250%) hue-rotate(349deg) brightness(101%) contrast(104%) !important;
+}
+
+
+
+/* ── Odometer Rolling Number Keyframes ── */
+@keyframes odometerDown {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes odometerUp {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.odometer-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25em;
+  vertical-align: middle;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3EFE9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1C9BE;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8ADA0;
+}
