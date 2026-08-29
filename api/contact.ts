@@ -26,15 +26,8 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
-// Basic cleanup every 30 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, record] of rateLimitMap.entries()) {
-    if (now > record.resetTime) {
-      rateLimitMap.delete(ip);
-    }
-  }
-}, 30 * 60 * 1000);
+// Note: In-memory rate limiting only works within a single serverless instance.
+// For production, consider using a persistent store like Upstash Redis.
 
 export interface ContactRequestBody {
   email?: string;
