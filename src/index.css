@@ -6,6 +6,7 @@
     scroll-behavior: smooth;
     background-color: #F3EFE9;
     color: #111111;
+    cursor: none !important;
   }
 
   body {
@@ -14,8 +15,31 @@
     margin: 0;
     padding: 0;
     background-color: #F3EFE9;
+    cursor: none !important;
+  }
+
+  * {
+    cursor: none !important;
   }
 }
+
+/* ── Custom Cursor Dot (mix-blend-mode: difference = auto color inversion) ── */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  mix-blend-mode: difference;
+  pointer-events: none !important;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+  transition: opacity 0.2s ease;
+  z-index: 9999;
+}
+
 
 /* ── Typography Utility Helpers ── */
 .font-display {
@@ -104,6 +128,11 @@
 .reveal-layer-overlay .hero-underline,
 .reveal-layer-overlay .section-divider-line {
   background-color: #FF5722 !important;
+}
+
+/* Hero section background turns black inside the reveal lens */
+.reveal-layer-overlay #hero {
+  background-color: #111111 !important;
 }
 
 /* Hero backdrop circle behind portrait turns solid orange */
@@ -225,6 +254,103 @@
 
 .reveal-layer-overlay aside[aria-label="Scroll down reminder"] * {
   color: #FF5722 !important;
+}
+
+/* ── Projects Section: Cream background inverts to dark, text/elements stay legible ── */
+.reveal-layer-overlay #projects {
+  background-color: #0f0f0f !important;
+}
+
+/* Section bg override for the cream bg-[#F3EFE9] class */
+.reveal-layer-overlay #projects [class*="bg-\\[\\#F3EFE9\\]"],
+.reveal-layer-overlay #projects [class*="bg-[#F3EFE9]"] {
+  background-color: #0f0f0f !important;
+}
+
+/* Project titles: orange on hover is handled by global rule already;
+   default dark text (text-[#111111]) → white via global orange rule.
+   group-hover:text-[#FF5722] stays orange. */
+
+/* Project number (01, 02) — orange → white (same pattern as orientation strip) */
+.reveal-layer-overlay #projects [class~="text-[#FF5722]"]:not([class*="hover:"]):not([class*="group-hover:"]) {
+  color: #FFFFFF !important;
+}
+
+/* Project subtitle, description, bullet text — dark text → white */
+.reveal-layer-overlay #projects [class*="text-[#111111]"],
+.reveal-layer-overlay #projects [class*="text-[#222222]"] {
+  color: #FFFFFF !important;
+}
+
+/* Divider lines in projects — dark → orange (already handled globally, but reinforce) */
+.reveal-layer-overlay #projects [class*="bg-[#111111]"],
+.reveal-layer-overlay #projects [class*="bg-black\\/"] {
+  background-color: #FF5722 !important;
+}
+
+/* Tech stack tag pills — translucent black bg → dark fill, border orange */
+.reveal-layer-overlay #projects .projects-tech-tag {
+  background-color: rgba(255, 87, 34, 0.12) !important;
+  border-color: rgba(255, 87, 34, 0.45) !important;
+  color: #FFFFFF !important;
+}
+
+/* Divider between projects */
+.reveal-layer-overlay #projects [class*="divide-black"] > * + * {
+  border-color: rgba(255, 87, 34, 0.25) !important;
+}
+
+/* Bottom border separators */
+.reveal-layer-overlay #projects [class*="border-black\\/"] {
+  border-color: rgba(255, 87, 34, 0.3) !important;
+}
+
+/* "VIEW PROJECT & REPO" link arrow stays orange */
+.reveal-layer-overlay #projects a {
+  color: #FF5722 !important;
+}
+
+/* STATUS badge text */
+.reveal-layer-overlay #projects [class*="text-neutral"] {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ── Skills Section: Same inversion pattern as Projects ── */
+.reveal-layer-overlay #skills {
+  background-color: #0f0f0f !important;
+}
+
+/* Section number (02 / 05) — orange → white */
+.reveal-layer-overlay #skills [class~="text-[#FF5722]"]:not([class*="hover:"]):not([class*="group-hover:"]) {
+  color: #FFFFFF !important;
+}
+
+/* Heading, philosophy text, category titles — dark text → white */
+.reveal-layer-overlay #skills [class*="text-[#111111]"],
+.reveal-layer-overlay #skills [class*="text-[#222222]"] {
+  color: #FFFFFF !important;
+}
+
+/* Neutral muted text (FOUNDATIONS label, etc.) → dimmer white */
+.reveal-layer-overlay #skills [class*="text-neutral"] {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Skill pill: cream bg → orange-tinted dark, border → orange */
+.reveal-layer-overlay #skills .skills-pill {
+  background-color: rgba(255, 87, 34, 0.12) !important;
+  border-color: rgba(255, 87, 34, 0.45) !important;
+  color: #FFFFFF !important;
+}
+
+/* Category group top borders */
+.reveal-layer-overlay #skills [class*="border-black\\/"] {
+  border-color: rgba(255, 87, 34, 0.3) !important;
+}
+
+/* Philosophy block bottom border */
+.reveal-layer-overlay #skills [class*="border-t"] {
+  border-color: rgba(255, 87, 34, 0.25) !important;
 }
 
 /* ── Contact Form Inversion & Reveal Styling ──

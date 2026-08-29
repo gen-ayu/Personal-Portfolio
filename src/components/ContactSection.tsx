@@ -172,7 +172,9 @@ export default function ContactSection({
                   </button>
 
                   <a
-                    href="mailto:hello@ayushanand.dev?subject=Resume%20Request%20-%20Ayush%20Anand"
+                    href="https://drive.google.com/file/d/1ivuQYSnACICeMG0jYIJxLGTpxrwNemO5/view?usp=sharing"
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center gap-3 text-[13px] sm:text-[14px] font-bold tracking-[2px] uppercase text-[#111111] hover:text-[#FF5722] border-b border-black/50 hover:border-[#FF5722] pb-1.5 w-fit group"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
@@ -341,7 +343,7 @@ export default function ContactSection({
 
           <div className="flex items-center gap-8 sm:gap-10">
             <a
-              href="https://github.com"
+              href="https://github.com/gen-ayu"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-widest text-[#111111] hover:text-[#FF5722]"
@@ -353,7 +355,7 @@ export default function ContactSection({
             </a>
 
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/ayush-anand-giri"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-widest text-[#111111] hover:text-[#FF5722]"

@@ -14,8 +14,37 @@ import { useScrollReveal } from "./hooks/useScrollReveal";
 export default function App() {
   // Activate circular cursor reveal engine
   const revealOverlayRef = useCursorReveal();
+
+  // Custom cursor dot ref — color inversion handled entirely by mix-blend-mode: difference in CSS
+  const dotRef = useRef<HTMLDivElement>(null);
   // Activate scroll-triggered reveal animation observer
   useScrollReveal();
+
+  // Track cursor position via direct DOM writes (no re-renders)
+  useEffect(() => {
+    const dot = dotRef.current;
+    if (!dot) return;
+
+    const move = (e: MouseEvent) => {
+      dot.style.left = `${e.clientX}px`;
+      dot.style.top = `${e.clientY}px`;
+      dot.style.opacity = "1";
+    };
+
+    const hide = () => { dot.style.opacity = "0"; };
+    const show = () => { dot.style.opacity = "1"; };
+
+    window.addEventListener("mousemove", move, { passive: true });
+    document.documentElement.addEventListener("mouseleave", hide);
+    document.documentElement.addEventListener("mouseenter", show);
+
+    return () => {
+      window.removeEventListener("mousemove", move);
+      document.documentElement.removeEventListener("mouseleave", hide);
+      document.documentElement.removeEventListener("mouseenter", show);
+    };
+  }, []);
+
 
   const [activeSection, setActiveSection] = useState(1); // 1 to 5
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -152,6 +181,8 @@ export default function App() {
       ref={mainContainerRef}
       className="w-full min-h-screen relative bg-[#F3EFE9] text-[#111111]"
     >
+      {/* Cursor dot — white with mix-blend-mode:difference inverts any background automatically */}
+      <div id="cursor-dot" ref={dotRef} className="cursor-dot" style={{ opacity: 0 }} />
       {/* ── Persistent Scroll Wheel Indicator (Middle 80vh, starting 20% down) ── */}
       <ScrollWheel
         activeSection={activeSection}

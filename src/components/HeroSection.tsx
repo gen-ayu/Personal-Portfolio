@@ -223,8 +223,8 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             style={{
               width: "min(35.5vw, 58vh, 530px)",
               height: "min(35.5vw, 58vh, 530px)",
-              right: "clamp(-6px, 0.5vw, 20px)",
-              top: "48%",
+              right: "calc(clamp(-6px, 0.5vw, 20px) + 60px)",
+              top: "40%",
               transform: "translateY(-50%)",
               zIndex: 1,
             }}
@@ -290,7 +290,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
           <div className="flex flex-wrap items-center gap-5 sm:gap-9 lg:gap-11">
             {/* Email Block */}
             <a
-              href="mailto:hello@ayushanand.dev"
+              href="mailto:ayush.anand.giri@gmail.com"
               className="flex items-center gap-3 group"
             >
               <img
@@ -309,7 +309,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
                   className="text-[#111111] text-[13px] sm:text-[13.5px] font-medium leading-none group-hover:text-[#FF5722] transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  hello@ayushanand.dev
+                  ayush.anand.giri@gmail.com
                 </span>
               </div>
             </a>

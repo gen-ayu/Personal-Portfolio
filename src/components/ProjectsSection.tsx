@@ -110,7 +110,7 @@ export default function ProjectsSection() {
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider bg-black/5 border border-black/15 rounded text-[#222222] font-medium"
+                        className="projects-tech-tag px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider bg-black/5 border border-black/15 rounded text-[#222222] font-medium"
                       >
                         {tech}
                       </span>
@@ -163,7 +163,7 @@ export default function ProjectsSection() {
             More details available on request. More projects are in active development.
           </p>
           <a
-            href="https://github.com"
+            href="https://github.com/gen-ayu"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 text-[12px] font-bold tracking-[1.5px] uppercase text-[#111111] hover:text-[#FF5722] border-b border-black/40 pb-0.5"

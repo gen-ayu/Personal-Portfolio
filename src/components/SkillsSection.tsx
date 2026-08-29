@@ -95,7 +95,7 @@ export default function SkillsSection() {
                   {cat.skills.map((skill, skillIdx) => (
                     <span
                       key={skill}
-                      className="px-3 py-1.5 text-[13px] sm:text-[13.5px] font-medium bg-[#EAE4DC] border border-black/20 rounded text-[#111111] hover:border-[#FF5722] hover:bg-white transition-all duration-150 cursor-default reveal"
+                      className="skills-pill px-3 py-1.5 text-[13px] sm:text-[13.5px] font-medium bg-[#EAE4DC] border border-black/20 rounded text-[#111111] hover:border-[#FF5722] hover:bg-white transition-all duration-150 cursor-default reveal"
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         "--delay": `${140 + catIdx * 80 + skillIdx * 40}ms`,
