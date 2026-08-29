@@ -6,7 +6,7 @@ export default function AboutSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
           <div>
             <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-3">
               03 / 05
@@ -28,16 +28,22 @@ export default function AboutSection() {
         {/* Main Grid: Badge + Narrative */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Location & Origin Badge */}
-          <div className="lg:col-span-4 flex flex-col items-center lg:items-start">
-            <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full border border-neutral-700 bg-neutral-900 flex flex-col items-center justify-center text-center p-6 shadow-xl group hover:border-[#FF5722] transition-colors">
-              <span className="text-[#FF5722] font-black text-2xl tracking-tighter mb-2">
-                IN
-              </span>
-              <span className="text-neutral-300 font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[2px] font-bold leading-tight">
-                BASED IN INDIA<br />
-                WORKING EVERYWHERE
-              </span>
-              <div className="mt-3 w-6 h-[1.5px] bg-[#FF5722]" />
+          <div
+            className="lg:col-span-4 flex flex-col items-center lg:items-start reveal"
+            style={{ "--delay": "100ms" } as React.CSSProperties}
+          >
+            {/* Slow-spin wrapper — isolated so reveal/hover transforms don't conflict */}
+            <div className="about-disk-spin">
+              <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full border border-neutral-700 bg-neutral-900 flex flex-col items-center justify-center text-center p-6 shadow-xl group hover:border-[#FF5722] transition-colors">
+                <span className="about-disk-label text-[#FF5722] font-black text-2xl tracking-tighter mb-2">
+                  IN
+                </span>
+                <span className="text-neutral-300 font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[2px] font-bold leading-tight">
+                  BASED IN INDIA<br />
+                  WORKING EVERYWHERE
+                </span>
+                <div className="mt-3 w-6 h-[1.5px] bg-[#FF5722]" />
+              </div>
             </div>
 
             {/* Quick Metrics */}
@@ -56,23 +62,35 @@ export default function AboutSection() {
           {/* Right Column: Statement & Bio Text */}
           <div className="lg:col-span-8 flex flex-col gap-8">
             <h3
-              className="text-[clamp(30px,4.2vw,56px)] font-bold tracking-tight leading-[1.05] text-white"
-              style={{ fontFamily: "'Oswald', sans-serif" }}
+              className="text-[clamp(30px,4.2vw,56px)] font-bold tracking-tight leading-[1.05] text-white reveal"
+              style={{ fontFamily: "'Oswald', sans-serif", "--delay": "120ms" } as React.CSSProperties}
             >
               I care about the logic behind the lovely surface.
             </h3>
 
             <div className="space-y-5 text-[15.5px] sm:text-[17px] text-neutral-300 leading-relaxed font-sans">
-              <p>
+              <p
+                className="reveal"
+                style={{ "--delay": "180ms" } as React.CSSProperties}
+              >
                 I'm a second-year student at Lovely Professional University from Bihar, India, currently holding a CGPA of 8.42.
               </p>
-              <p>
+              <p
+                className="reveal"
+                style={{ "--delay": "260ms" } as React.CSSProperties}
+              >
                 What actually pulled me into building things was frustration — realizing how many tools people pay for are things that could genuinely be built in a day or two, especially now, in the AI era. I wanted something I couldn't afford, so instead of paying for it, I built it myself.
               </p>
-              <p>
+              <p
+                className="reveal"
+                style={{ "--delay": "340ms" } as React.CSSProperties}
+              >
                 That's more or less how this whole path started, and it's still what pulls me toward every new project — solving a real problem, cheaply and directly.
               </p>
-              <p className="text-neutral-400 text-[14.5px] sm:text-[15.5px] pt-4 border-t border-neutral-800">
+              <p
+                className="text-neutral-400 text-[14.5px] sm:text-[15.5px] pt-4 border-t border-neutral-800 reveal"
+                style={{ "--delay": "420ms" } as React.CSSProperties}
+              >
                 Good software is a conversation between a person and an idea. My job is to make that conversation feel natural — with a little character, and no unnecessary friction.
               </p>
             </div>

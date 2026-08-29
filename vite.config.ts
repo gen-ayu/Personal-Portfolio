@@ -1,12 +1,15 @@
-import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
+import { defineConfig, loadEnv, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 import siteConfiguration from './.figma/make/site.json'
+import { handleContactSubmission } from './api/contact.ts'
 
 // Vite config — https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+
   // .figma/make/deploy-preview passes `--mode development` for cached-preview builds.
   const emitSourcemaps = mode === 'development'
 
@@ -19,6 +22,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss(),
+      contactApiPlugin(env),
       figmaSiteConfiguration(siteConfiguration),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
@@ -41,6 +45,48 @@ export default defineConfig(({ mode }) => {
     },
   }
 })
+
+function contactApiPlugin(env: Record<string, string>): Plugin {
+  const handleRequest = async (req: any, res: any, next: () => void) => {
+    const url = req.url?.split('?')[0]
+    if (url === '/api/contact' && req.method === 'POST') {
+      let bodyStr = ''
+      req.on('data', (chunk: any) => {
+        bodyStr += chunk
+      })
+      req.on('end', async () => {
+        try {
+          const body = bodyStr ? JSON.parse(bodyStr) : {}
+          const clientIp =
+            req.headers['x-forwarded-for']?.toString().split(',')[0] ||
+            req.socket?.remoteAddress ||
+            '127.0.0.1'
+
+          const result = await handleContactSubmission(body, clientIp, env)
+          res.statusCode = result.status
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify(result.body))
+        } catch (err: any) {
+          res.statusCode = 400
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify({ error: 'Invalid JSON request body.' }))
+        }
+      })
+      return
+    }
+    next()
+  }
+
+  return {
+    name: 'contact-api-plugin',
+    configureServer(server) {
+      server.middlewares.use(handleRequest)
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(handleRequest)
+    },
+  }
+}
 
 type FigmaSiteConfiguration = {
   title?: string

@@ -41,7 +41,7 @@ export default function ExperienceSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
           <div>
             <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-3">
               04 / 05
@@ -65,7 +65,8 @@ export default function ExperienceSection() {
           {experiences.map((item, idx) => (
             <div
               key={idx}
-              className="py-10 sm:py-12 first:pt-0 last:pb-4 group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start"
+              className="py-10 sm:py-12 first:pt-0 last:pb-4 group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start reveal"
+              style={{ "--delay": `${idx * 110}ms` } as React.CSSProperties}
             >
               {/* Period Column */}
               <div className="lg:col-span-3">

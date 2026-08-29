@@ -30,7 +30,7 @@ export default function SkillsSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
           <div>
             <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-3">
               02 / 05
@@ -53,7 +53,10 @@ export default function SkillsSection() {
         {/* Content Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Philosophy / Statement */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
+          <div
+            className="lg:col-span-5 flex flex-col justify-between reveal"
+            style={{ "--delay": "100ms" } as React.CSSProperties}
+          >
             <div>
               <h3
                 className="text-[clamp(28px,3.2vw,44px)] font-bold uppercase tracking-tight leading-[1.05] text-[#111111] mb-6"
@@ -78,21 +81,25 @@ export default function SkillsSection() {
 
           {/* Right Column: 4 Category Grids */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
-            {skillCategories.map((cat) => (
+            {skillCategories.map((cat, catIdx) => (
               <div
                 key={cat.title}
-                className="flex flex-col border-t border-black/25 pt-4"
+                className="flex flex-col border-t border-black/25 pt-4 reveal"
+                style={{ "--delay": `${120 + catIdx * 90}ms` } as React.CSSProperties}
               >
                 <span className="text-[11.5px] font-mono font-bold uppercase tracking-[2px] text-[#111111] mb-4">
                   {cat.title}
                 </span>
 
                 <div className="flex flex-wrap gap-2">
-                  {cat.skills.map((skill) => (
+                  {cat.skills.map((skill, skillIdx) => (
                     <span
                       key={skill}
-                      className="px-3 py-1.5 text-[13px] sm:text-[13.5px] font-medium bg-[#EAE4DC] border border-black/20 rounded text-[#111111] hover:border-[#FF5722] hover:bg-white transition-all duration-150 cursor-default"
-                      style={{ fontFamily: "'Inter', sans-serif" }}
+                      className="px-3 py-1.5 text-[13px] sm:text-[13.5px] font-medium bg-[#EAE4DC] border border-black/20 rounded text-[#111111] hover:border-[#FF5722] hover:bg-white transition-all duration-150 cursor-default reveal"
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        "--delay": `${140 + catIdx * 80 + skillIdx * 40}ms`,
+                      } as React.CSSProperties}
                     >
                       {skill}
                     </span>

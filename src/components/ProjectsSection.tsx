@@ -22,7 +22,7 @@ export default function ProjectsSection() {
         "Lucide Icons",
       ],
       status: "CODE & DEMO",
-      githubUrl: "https://github.com",
+      githubUrl: "https://github.com/gen-ayu/ChibiDesk",
     },
     {
       num: "02",
@@ -44,7 +44,7 @@ export default function ProjectsSection() {
         "Responsive Web Design",
       ],
       status: "CODE & DEMO",
-      githubUrl: "https://github.com",
+      githubUrl: "https://github.com/gen-ayu/EcoTrack",
     },
   ];
 
@@ -55,7 +55,7 @@ export default function ProjectsSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
           <div>
             <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-3">
               01 / 05
@@ -77,10 +77,11 @@ export default function ProjectsSection() {
 
         {/* Projects List */}
         <div className="flex flex-col divide-y divide-black/15">
-          {projects.map((project) => (
+          {projects.map((project, idx) => (
             <article
               key={project.title}
-              className="py-12 sm:py-16 first:pt-0 last:pb-12 group transition-colors"
+              className="py-12 sm:py-16 first:pt-0 last:pb-12 group transition-colors reveal"
+              style={{ "--delay": `${idx * 140}ms` } as React.CSSProperties}
             >
               <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
                 {/* Left Side: Number, Title, Dates, Subtitle */}
@@ -154,7 +155,10 @@ export default function ProjectsSection() {
         </div>
 
         {/* End of Section Card / Note */}
-        <div className="mt-8 pt-8 border-t border-black/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div
+          className="mt-8 pt-8 border-t border-black/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 reveal"
+          style={{ "--delay": "100ms" } as React.CSSProperties}
+        >
           <p className="text-[#222222]/70 text-[13px] font-sans">
             More details available on request. More projects are in active development.
           </p>

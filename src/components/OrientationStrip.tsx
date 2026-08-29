@@ -30,13 +30,16 @@ export default function OrientationStrip({ onSelectSection }: OrientationStripPr
         {/* Top Header Row */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <h2
-            className="text-[clamp(32px,4.5vw,60px)] font-bold uppercase tracking-tight leading-[0.95] text-white"
-            style={{ fontFamily: "'Oswald', sans-serif" }}
+            className="text-[clamp(32px,4.5vw,60px)] font-bold uppercase tracking-tight leading-[0.95] text-white reveal"
+            style={{ fontFamily: "'Oswald', sans-serif", "--delay": "0ms" } as React.CSSProperties}
           >
             A considered route<br />
             through the work.
           </h2>
-          <div className="flex items-center gap-3">
+          <div
+            className="flex items-center gap-3 reveal"
+            style={{ "--delay": "80ms" } as React.CSSProperties}
+          >
             <p className="text-neutral-400 text-[12px] sm:text-[13px] max-w-[280px] leading-relaxed font-sans">
               No rush. The useful details are usually a little further down.
             </p>
@@ -53,12 +56,13 @@ export default function OrientationStrip({ onSelectSection }: OrientationStripPr
             <button
               key={step.num}
               onClick={() => handleScrollTo(step.targetId, idx)}
-              className="group text-left flex flex-col gap-2 p-3 -m-3 rounded hover:bg-neutral-900/60 transition-colors cursor-pointer"
+              className="group text-left flex flex-col gap-2 p-3 -m-3 rounded hover:bg-neutral-900/60 transition-colors cursor-pointer reveal"
+              style={{ "--delay": `${100 + idx * 80}ms` } as React.CSSProperties}
             >
-              <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider group-hover:translate-x-1 transition-transform inline-block">
+              <span className="orientation-step-number text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider group-hover:translate-x-1 transition-transform inline-block">
                 {step.num}
               </span>
-              <span className="text-white text-[15px] sm:text-[17px] font-semibold tracking-tight leading-snug">
+              <span className="orientation-step-label text-white text-[15px] sm:text-[17px] font-semibold tracking-tight leading-snug">
                 {step.label}
               </span>
             </button>

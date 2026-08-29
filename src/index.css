@@ -30,16 +30,53 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* ── About Section: Disk Spin Animation ── */
+/* Rotation is driven by a single RAF loop in App.tsx that writes --disk-angle
+   to :root. Both the base layer and overlay layer read the same value,
+   so they are always pixel-perfect in sync under the cursor reveal lens. */
+.about-disk-spin {
+  display: inline-flex;
+  transform: rotate(var(--disk-angle, 0deg));
+  will-change: transform;
+}
 
+/* ── Scroll Reveal Animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+  will-change: opacity, transform;
+}
 
-/* ── Circular Cursor Reveal Layer (Orange Tint Overlay) ── */
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure reveal overlay layer elements are always at full opacity and resting position
+   so circular cursor hover lens works consistently across all elements without desync */
+.reveal-layer-overlay .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 .reveal-layer-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  pointer-events: none !important;
   user-select: none;
   z-index: 50;
   overflow: hidden;
@@ -49,6 +86,7 @@
 /* Default elements (black/white text, neutral borders, icons) turn orange in reveal */
 .reveal-layer-overlay,
 .reveal-layer-overlay * {
+  pointer-events: none !important;
   color: #FF5722 !important;
   border-color: #FF5722 !important;
 }
@@ -76,30 +114,51 @@
 /* ── Inversion Rule ──────────────────────────────────────────────────
    Wherever an element is ORANGE (#FF5722) by default, that element
    turns BLACK (#111111) when revealed under the cursor hover lens.
+   (Excludes hover:text- / group-hover:text- so interactive text turns orange)
    ────────────────────────────────────────────────────────────────── */
-.reveal-layer-overlay [class*="text-[#FF5722]"],
-.reveal-layer-overlay [class*="text-\\[\\#FF5722\\]"],
-.reveal-layer-overlay [class*="text-[#ff5722]"] {
+.reveal-layer-overlay [class~="text-[#FF5722]"]:not([class*="hover:text"]):not([class*="group-hover:text"]),
+.reveal-layer-overlay [class~="text-\\[\\#FF5722\\]"]:not([class*="hover:text"]):not([class*="group-hover:text"]),
+.reveal-layer-overlay [class~="text-[#ff5722]"]:not([class*="hover:text"]):not([class*="group-hover:text"]) {
   color: #111111 !important;
 }
 
-.reveal-layer-overlay [class*="bg-[#FF5722]"],
-.reveal-layer-overlay [class*="bg-\\[\\#FF5722\\]"],
-.reveal-layer-overlay [class*="bg-[#ff5722]"] {
+.reveal-layer-overlay [class~="bg-[#FF5722]"]:not([class*="hover:bg"]):not([class*="group-hover:bg"]),
+.reveal-layer-overlay [class~="bg-\\[\\#FF5722\\]"]:not([class*="hover:bg"]):not([class*="group-hover:bg"]),
+.reveal-layer-overlay [class~="bg-[#ff5722]"]:not([class*="hover:bg"]):not([class*="group-hover:bg"]) {
   background-color: #111111 !important;
 }
 
-.reveal-layer-overlay [class*="border-[#FF5722]"],
-.reveal-layer-overlay [class*="border-\\[\\#FF5722\\]"],
-.reveal-layer-overlay [class*="border-[#ff5722]"] {
+.reveal-layer-overlay [class~="border-[#FF5722]"]:not([class*="hover:border"]):not([class*="group-hover:border"]),
+.reveal-layer-overlay [class~="border-\\[\\#FF5722\\]"]:not([class*="hover:border"]):not([class*="group-hover:border"]),
+.reveal-layer-overlay [class~="border-[#ff5722]"]:not([class*="hover:border"]):not([class*="group-hover:border"]) {
   border-color: #111111 !important;
 }
 
-/* Specific to Orientation Strip: default orange turns WHITE for crisp contrast on dark background */
+/* Guarantee that any element with hover/group-hover orange variants turns bright orange under the reveal lens */
+.reveal-layer-overlay [class*="group-hover:text-[#FF5722]"],
+.reveal-layer-overlay [class*="hover:text-[#FF5722]"],
+.reveal-layer-overlay [class*="group-hover:text-[#ff5722]"],
+.reveal-layer-overlay [class*="hover:text-[#ff5722]"] {
+  color: #FF5722 !important;
+}
+
+.reveal-layer-overlay [class*="group-hover:border-[#FF5722]"],
+.reveal-layer-overlay [class*="hover:border-[#FF5722]"],
+.reveal-layer-overlay [class*="group-hover:border-[#ff5722]"],
+.reveal-layer-overlay [class*="hover:border-[#ff5722]"] {
+  border-color: #FF5722 !important;
+}
+
+/* Specific to Orientation Strip: default orange numbers & dots turn WHITE under hover reveal lens */
+.reveal-layer-overlay #orientation-strip .orientation-step-number,
 .reveal-layer-overlay #orientation-strip [class*="text-[#FF5722]"],
 .reveal-layer-overlay #orientation-strip [class*="text-\\[\\#FF5722\\]"],
 .reveal-layer-overlay #orientation-strip [class*="text-[#ff5722]"] {
   color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay #orientation-strip .orientation-step-label {
+  color: #FF5722 !important;
 }
 
 .reveal-layer-overlay #orientation-strip [class*="bg-[#FF5722]"],
@@ -112,6 +171,17 @@
 .reveal-layer-overlay #orientation-strip [class*="border-\\[\\#FF5722\\]"],
 .reveal-layer-overlay #orientation-strip [class*="border-[#ff5722]"] {
   border-color: #FFFFFF !important;
+}
+
+/* ── About Section Disk: orange "IN" label turns WHITE under hover reveal lens ── */
+.reveal-layer-overlay #about .about-disk-label {
+  color: #FFFFFF !important;
+}
+
+/* Orange accent bar inside disk turns white too */
+.reveal-layer-overlay #about .about-disk-spin > div > div[class*="bg-[#FF5722]"],
+.reveal-layer-overlay #about .about-disk-spin > div > div[class*="bg-\\[\\#FF5722\\]"] {
+  background-color: #FFFFFF !important;
 }
 
 /* ── Scroll Wheel Specific Inversion in Reveal Layer ─────────────────
@@ -140,9 +210,75 @@
   background-color: #FF5722 !important;
 }
 
-/* Tint SVG icons to match #FF5722 */
-.reveal-layer-overlay img[src$=".svg"] {
+/* Tint SVG icons to match #FF5722 on group hover and in reveal layer */
+.group:hover img:not(.color-portrait):not([src*=".png"]):not([src*="ColorPortfolio"]),
+.reveal-layer-overlay img:not(.color-portrait):not([src*=".png"]):not([src*="ColorPortfolio"]) {
   filter: invert(41%) sepia(94%) saturate(2250%) hue-rotate(349deg) brightness(101%) contrast(104%) !important;
+}
+
+/* ── Scroll Reminder in Reveal Layer ── */
+.reveal-layer-overlay aside[aria-label="Scroll down reminder"] {
+  background-color: #111111 !important;
+  color: #FF5722 !important;
+  border-color: #FF5722 !important;
+}
+
+.reveal-layer-overlay aside[aria-label="Scroll down reminder"] * {
+  color: #FF5722 !important;
+}
+
+/* ── Contact Form Inversion & Reveal Styling ──
+   Under cursor reveal lens: black elements turn WHITE, white/cream elements turn ORANGE */
+.reveal-layer-overlay .contact-form-box {
+  background-color: #0c0c0c !important;
+  border-color: #FF5722 !important;
+}
+
+.reveal-layer-overlay .contact-form-divider {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.reveal-layer-overlay .contact-header-title {
+  color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay .contact-close-btn {
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay .contact-close-btn:hover {
+  color: #FF5722 !important;
+}
+
+.reveal-layer-overlay .contact-cancel-btn {
+  color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay .contact-field-label {
+  color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay .contact-form-box input,
+.reveal-layer-overlay .contact-form-box textarea {
+  background-color: #1a1a1a !important;
+  border-color: #FF5722 !important;
+  color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay .contact-form-box input::placeholder,
+.reveal-layer-overlay .contact-form-box textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.reveal-layer-overlay .contact-submit-btn {
+  background-color: #FFFFFF !important;
+  color: #FF5722 !important;
+  border-color: #FFFFFF !important;
+}
+
+.reveal-layer-overlay .contact-submit-btn * {
+  color: #FF5722 !important;
 }
 
 

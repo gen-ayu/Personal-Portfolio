@@ -9,14 +9,40 @@ import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import ScrollReminder from "./components/ScrollReminder";
 import { useCursorReveal } from "./hooks/useCursorReveal";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 export default function App() {
   // Activate circular cursor reveal engine
   const revealOverlayRef = useCursorReveal();
+  // Activate scroll-triggered reveal animation observer
+  useScrollReveal();
 
   const [activeSection, setActiveSection] = useState(1); // 1 to 5
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isWheelVisible, setIsWheelVisible] = useState(false);
+
+  // Synchronized Contact Form State across base and cursor reveal layers
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
+  const [contactHoneypot, setContactHoneypot] = useState("");
+  const [contactStatus, setContactStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [contactErrorMessage, setContactErrorMessage] = useState("");
+
+  const contactFormState = {
+    isFormOpen: isContactFormOpen,
+    setIsFormOpen: setIsContactFormOpen,
+    email: contactEmail,
+    setEmail: setContactEmail,
+    message: contactMessage,
+    setMessage: setContactMessage,
+    honeypot: contactHoneypot,
+    setHoneypot: setContactHoneypot,
+    status: contactStatus,
+    setStatus: setContactStatus,
+    errorMessage: contactErrorMessage,
+    setErrorMessage: setContactErrorMessage,
+  };
 
   const mainContainerRef = useRef<HTMLDivElement>(null);
 
@@ -102,6 +128,25 @@ export default function App() {
     };
   }, []);
 
+  // 3. Drive shared disk rotation angle — one RAF loop, one source of truth.
+  //    Both the base layer and overlay layer disk elements read from --disk-angle
+  //    on :root so they always show exactly the same rotation angle.
+  useEffect(() => {
+    const DEG_PER_MS = 360 / 20000; // 20 000ms per full revolution
+    let startTime: number | null = null;
+    let rafId: number;
+
+    const tick = (now: number) => {
+      if (startTime === null) startTime = now;
+      const angle = ((now - startTime) * DEG_PER_MS) % 360;
+      document.documentElement.style.setProperty("--disk-angle", `${angle.toFixed(3)}deg`);
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
   return (
     <div
       ref={mainContainerRef}
@@ -134,7 +179,7 @@ export default function App() {
       <ExperienceSection />
 
       {/* Section 05: Contact / Footer */}
-      <ContactSection />
+      <ContactSection formState={contactFormState} />
 
       {/* Floating Scroll Reminder */}
       <ScrollReminder />
@@ -158,7 +203,8 @@ export default function App() {
         <SkillsSection />
         <AboutSection />
         <ExperienceSection />
-        <ContactSection />
+        <ContactSection isRevealLayer={true} formState={contactFormState} />
+        <ScrollReminder />
       </div>
     </div>
   );

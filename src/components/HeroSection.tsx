@@ -1,5 +1,5 @@
-import bwPortraitSrc from "@/imports/Adobe_Express_-_file-1.png";
-import colorPortraitSrc from "@/imports/ColorPortfolio.png";
+import { useEffect, useRef } from "react";
+import colorPortraitSrc from "@/imports/ColorPortfolio2.png";
 
 const assetPathPrefix = "/assets";
 const imgEmail = `${assetPathPrefix}/f49a6.svg`;
@@ -7,12 +7,120 @@ const imgWebsite = `${assetPathPrefix}/3620d.svg`;
 const imgLocation = `${assetPathPrefix}/dd8d8.svg`;
 const imgArrow = `${assetPathPrefix}/b7f9a.svg`;
 
+const PORTRAIT_CIRCLE_RADIUS = 95; // Radius in pixels for the circular reveal lens
+const INACTIVITY_TIMEOUT_MS = 500; // 0.5s inactivity before shrinking out
+
 interface HeroSectionProps {
   isRevealLayer?: boolean;
 }
 
 export default function HeroSection({ isRevealLayer = false }: HeroSectionProps) {
-  const currentPortrait = isRevealLayer ? colorPortraitSrc : bwPortraitSrc;
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const colorImgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (isRevealLayer) return;
+    const colorImg = colorImgRef.current;
+    const container = portraitRef.current;
+    if (!colorImg || !container) return;
+
+    let targetRadius = 0;
+    let currentRadius = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let isRunning = false;
+    let animationFrameId: number;
+    let lastTime = performance.now();
+    let inactivityTimer: number | undefined;
+
+    const render = (time: number) => {
+      const dt = Math.min((time - lastTime) / 1000, 0.1);
+      lastTime = time;
+
+      // Smoothly ease the reveal radius and coordinates
+      const speed = targetRadius > currentRadius ? 16 : 12;
+      currentRadius += (targetRadius - currentRadius) * (1 - Math.exp(-speed * dt));
+      currentX += (targetX - currentX) * (1 - Math.exp(-32 * dt));
+      currentY += (targetY - currentY) * (1 - Math.exp(-32 * dt));
+
+      if (Math.abs(currentRadius) < 0.2 && targetRadius === 0) {
+        currentRadius = 0;
+      }
+
+      colorImg.style.clipPath = `circle(${currentRadius.toFixed(2)}px at ${currentX.toFixed(1)}px ${currentY.toFixed(1)}px)`;
+
+      if (currentRadius === 0 && targetRadius === 0) {
+        isRunning = false;
+        return;
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    const startLoop = () => {
+      if (!isRunning) {
+        isRunning = true;
+        lastTime = performance.now();
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+      targetRadius = PORTRAIT_CIRCLE_RADIUS;
+      startLoop();
+
+      if (inactivityTimer) {
+        window.clearTimeout(inactivityTimer);
+      }
+      inactivityTimer = window.setTimeout(() => {
+        targetRadius = 0;
+        startLoop();
+      }, INACTIVITY_TIMEOUT_MS);
+    };
+
+    const handleMouseEnter = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+      currentX = targetX;
+      currentY = targetY;
+      targetRadius = PORTRAIT_CIRCLE_RADIUS;
+      startLoop();
+
+      if (inactivityTimer) {
+        window.clearTimeout(inactivityTimer);
+      }
+      inactivityTimer = window.setTimeout(() => {
+        targetRadius = 0;
+        startLoop();
+      }, INACTIVITY_TIMEOUT_MS);
+    };
+
+    const handleMouseLeave = () => {
+      if (inactivityTimer) {
+        window.clearTimeout(inactivityTimer);
+      }
+      targetRadius = 0;
+      startLoop();
+    };
+
+    container.addEventListener("mousemove", handleMouseMove, { passive: true });
+    container.addEventListener("mouseenter", handleMouseEnter, { passive: true });
+    container.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+      if (inactivityTimer) window.clearTimeout(inactivityTimer);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isRevealLayer]);
 
   const handleScrollToProjects = () => {
     const el = document.getElementById("projects");
@@ -35,7 +143,10 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
       style={{ backgroundColor: "#F3EFE9", color: "#111111" }}
     >
       {/* ── Top Header ─────────────────────────────────────────── */}
-      <header className="w-full flex items-start justify-between px-6 sm:px-10 lg:px-14 pt-6 sm:pt-8 pb-0 relative z-30 shrink-0">
+      <header
+        className="w-full flex items-start justify-between px-6 sm:px-10 lg:px-14 pt-6 sm:pt-8 pb-0 relative z-30 shrink-0 reveal"
+        style={{ "--delay": "0ms" } as React.CSSProperties}
+      >
         {/* Left: Tagline */}
         <div className="flex flex-col gap-0.5 select-none">
           <span
@@ -74,32 +185,38 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         {/* Left Column: Typography & Bio */}
         <div className="flex-1 flex flex-col justify-end pb-5 sm:pb-7 lg:pb-8 z-20 max-w-2xl">
           <h1
-            className="text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none"
-            style={{ fontFamily: "'Oswald', sans-serif" }}
+            className="text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal"
+            style={{ fontFamily: "'Oswald', sans-serif", "--delay": "100ms" } as React.CSSProperties}
           >
             AYUSH<br />ANAND
           </h1>
 
           <p
-            className="mt-6 sm:mt-7 text-[#111111] text-[clamp(12.5px,1.3vw,18.5px)] tracking-[4.2px] uppercase font-bold select-none"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="mt-6 sm:mt-7 text-[#111111] text-[clamp(12.5px,1.3vw,18.5px)] tracking-[4.2px] uppercase font-bold select-none reveal"
+            style={{ fontFamily: "'Inter', sans-serif", "--delay": "220ms" } as React.CSSProperties}
           >
             DEVELOPER &amp; PROBLEM SOLVER
           </p>
 
           <p
-            className="mt-4 mb-6 sm:mb-7 text-[#222222] text-[clamp(13px,1.05vw,16px)] leading-[1.55] font-medium max-w-[460px]"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="mt-4 mb-6 sm:mb-7 text-[#222222] text-[clamp(13px,1.05vw,16px)] leading-[1.55] font-medium max-w-[460px] reveal"
+            style={{ fontFamily: "'Inter', sans-serif", "--delay": "320ms" } as React.CSSProperties}
           >
             I build digital experiences that are intentional, impactful, and built to last.
           </p>
 
           {/* Left Decorative Underline */}
-          <div className="hero-underline bg-[#111111] h-[3.5px] w-[80px]" />
+          <div
+            className="hero-underline bg-[#111111] h-[3.5px] w-[80px] reveal"
+            style={{ "--delay": "400ms" } as React.CSSProperties}
+          />
         </div>
 
-        {/* Right Column: Circle Backdrop + Foreground Portrait with Color Reveal on Hover */}
-        <div className="flex-1 min-h-0 relative flex items-end justify-center lg:justify-end h-full">
+        {/* Right Column: Circle Backdrop + Tight Foreground Portrait with Circular Color Reveal */}
+        <div
+          className="flex-1 min-h-0 relative flex items-end justify-center lg:justify-end h-full pointer-events-none reveal"
+          style={{ "--delay": "180ms" } as React.CSSProperties}
+        >
           {/* Background Dark Circle */}
           <div
             className="hero-backdrop-circle absolute rounded-full bg-[#222222] pointer-events-none transition-transform duration-700"
@@ -113,26 +230,45 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             }}
           />
 
-          {/* Foreground Portrait Container */}
+          {/* Tight Foreground Portrait Container - Dimensions match rendered image exactly */}
           <div
-            className="portrait-container relative w-full h-full min-h-0 flex items-end justify-center lg:justify-end cursor-pointer"
-            style={{ zIndex: 10 }}
-            title="Ayush Anand"
+            ref={portraitRef}
+            className="portrait-container relative inline-flex items-end justify-center pointer-events-auto cursor-pointer select-none"
+            style={{
+              zIndex: 10,
+              marginRight: "clamp(10px, 3.5vw, 55px)",
+              marginBottom: "-1px",
+            }}
           >
+            {/* Black and White Base Portrait */}
             <img
-              src={currentPortrait}
-              alt="Ayush Anand"
-              className="max-w-none select-none"
+              src={colorPortraitSrc}
+              alt="Ayush Anand (B&W)"
+              className="max-w-none select-none block"
               style={{
                 height: "min(58vw, 84vh, 830px)",
                 width: "auto",
                 objectFit: "contain",
                 objectPosition: "center bottom",
-                marginRight: "clamp(10px, 3.5vw, 55px)",
-                marginBottom: "-1px",
                 filter: isRevealLayer
                   ? "drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))"
                   : "grayscale(100%) contrast(105%) drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))",
+              }}
+            />
+
+            {/* Color Portrait Stacked on Top - Clipped to Cursor Circle */}
+            <img
+              ref={colorImgRef}
+              src={colorPortraitSrc}
+              alt="Ayush Anand (Color Reveal)"
+              className="color-portrait max-w-none select-none absolute inset-0 w-full h-full pointer-events-none"
+              style={{
+                objectFit: "contain",
+                objectPosition: "center bottom",
+                willChange: "clip-path",
+                clipPath: isRevealLayer ? undefined : "circle(0px at -100px -100px)",
+                filter:
+                  "drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))",
               }}
             />
           </div>
@@ -145,7 +281,10 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
       </div>
 
       {/* ── Bottom Section / Contact Footer Strip ─── */}
-      <footer className="w-full px-6 sm:px-10 lg:px-14 pt-3.5 sm:pt-4 pb-4 sm:pb-5 relative z-20 shrink-0">
+      <footer
+        className="w-full px-6 sm:px-10 lg:px-14 pt-3.5 sm:pt-4 pb-4 sm:pb-5 relative z-20 shrink-0 reveal"
+        style={{ "--delay": "450ms" } as React.CSSProperties}
+      >
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-4">
           {/* Contact Information Blocks */}
           <div className="flex flex-wrap items-center gap-5 sm:gap-9 lg:gap-11">

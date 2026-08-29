@@ -17,7 +17,7 @@ export default function ScrollReminder() {
     timerRef.current = window.setTimeout(() => {
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
-      const canScrollFurther = maxScroll - window.scrollY > 80;
+      const canScrollFurther = maxScroll - window.scrollY > 250;
 
       if (canScrollFurther) {
         setIsVisible(true);
@@ -30,7 +30,7 @@ export default function ScrollReminder() {
     timerRef.current = window.setTimeout(() => {
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll - window.scrollY > 80) {
+      if (maxScroll - window.scrollY > 250) {
         setIsVisible(true);
       }
     }, 3000);
