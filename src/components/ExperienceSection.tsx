@@ -37,62 +37,65 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="w-full bg-[#F3EFE9] text-[#111111] py-20 sm:py-28 px-6 sm:px-10 lg:px-14 relative z-10 border-b border-black/20 selection:bg-neutral-900 selection:text-[#F3EFE9]"
+      className="w-full bg-[#F3EFE9] text-[#111111] py-14 sm:py-24 px-4 sm:px-8 lg:px-14 relative z-10 border-b border-black/20 selection:bg-neutral-900 selection:text-[#F3EFE9]"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
           <div>
-            <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-3">
+            <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-2 sm:mb-3">
               04 / 05
             </span>
             <h2
-              className="text-[clamp(42px,7.5vw,110px)] font-bold uppercase tracking-[-0.02em] leading-[0.88]"
+              className="text-[clamp(36px,7.5vw,110px)] font-bold uppercase tracking-[-0.02em] leading-[0.88]"
               style={{ fontFamily: "'Oswald', sans-serif" }}
             >
               Work history
             </h2>
           </div>
-          <p className="text-[#222222]/80 text-[14px] sm:text-[15px] max-w-[340px] leading-relaxed font-sans lg:text-right">
+          <p className="text-[#222222]/80 text-[13.5px] sm:text-[15px] max-w-[340px] leading-relaxed font-sans lg:text-right">
             A short timeline of places where the questions got better.
           </p>
         </div>
 
-        <div className="section-divider-line w-full h-[1.5px] bg-[#111111] mb-12 sm:mb-16" />
+        <div className="section-divider-line w-full h-[1.5px] bg-[#111111] mb-8 sm:mb-16" />
 
         {/* Timeline Entries */}
         <div className="flex flex-col divide-y divide-black/15">
           {experiences.map((item, idx) => (
             <div
               key={idx}
-              className="py-10 sm:py-12 first:pt-0 last:pb-4 group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start reveal"
+              className="py-8 sm:py-12 first:pt-0 last:pb-4 group grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-10 items-start reveal"
               style={{ "--delay": `${idx * 110}ms` } as React.CSSProperties}
             >
-              {/* Period Column */}
-              <div className="lg:col-span-3">
-                <span className="font-mono text-[13px] sm:text-[14px] font-semibold text-[#222222]/70 group-hover:text-[#FF5722] transition-colors">
+              {/* Period & Mobile Badge Row */}
+              <div className="lg:col-span-3 flex items-center justify-between lg:block">
+                <span className="font-mono text-[12.5px] sm:text-[14px] font-semibold text-[#222222]/70 group-hover:text-[#FF5722] transition-colors">
                   {item.period}
+                </span>
+                <span className="lg:hidden px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider border border-black/20 text-[#222222] group-hover:border-[#FF5722] group-hover:text-[#FF5722] transition-colors">
+                  {item.badge}
                 </span>
               </div>
 
               {/* Main Content Column */}
-              <div className="lg:col-span-7 flex flex-col gap-2">
+              <div className="lg:col-span-7 flex flex-col gap-1.5 sm:gap-2">
                 <h3
-                  className="text-[clamp(24px,3.2vw,38px)] font-bold uppercase tracking-tight text-[#111111] group-hover:text-[#FF5722]"
+                  className="text-[clamp(22px,3.2vw,38px)] font-bold uppercase tracking-tight text-[#111111] group-hover:text-[#FF5722]"
                   style={{ fontFamily: "'Oswald', sans-serif" }}
                 >
                   {item.role}
                 </h3>
-                <span className="text-[#FF5722] font-mono text-[11px] sm:text-[11.5px] font-bold uppercase tracking-[1.8px]">
+                <span className="text-[#FF5722] font-mono text-[10.5px] sm:text-[11.5px] font-bold uppercase tracking-[1.5px] sm:tracking-[1.8px]">
                   {item.organization}
                 </span>
-                <p className="mt-2 text-[#222222]/85 text-[14.5px] sm:text-[15.5px] leading-relaxed">
+                <p className="mt-1.5 sm:mt-2 text-[#222222]/85 text-[14px] sm:text-[15.5px] leading-relaxed">
                   {item.description}
                 </p>
               </div>
 
-              {/* Badge Column */}
-              <div className="lg:col-span-2 flex justify-start lg:justify-end">
+              {/* Desktop Badge Column */}
+              <div className="hidden lg:flex lg:col-span-2 justify-end">
                 <span className="px-3 py-1 text-[10.5px] font-mono font-bold uppercase tracking-wider border border-black/20 text-[#222222] group-hover:border-[#FF5722] group-hover:text-[#FF5722] transition-colors">
                   {item.badge}
                 </span>
