@@ -181,13 +181,13 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
       </header>
 
       {/* ── Mobile Main Hero Area (< lg) ───────────────────────── */}
-      <main className="lg:hidden w-full flex-1 min-h-0 flex flex-col justify-center px-4 sm:px-8 py-2 relative z-10 overflow-hidden">
-        {/* Horizontal Composition: Name (Left 58%) + Portrait (Right 42%) */}
-        <div className="w-full flex flex-row items-end justify-between gap-2 sm:gap-4 relative">
+      <main className="lg:hidden w-full flex-1 min-h-0 flex flex-col justify-start pt-3 sm:pt-6 px-4 sm:px-8 pb-2 relative z-10 overflow-hidden">
+        {/* Horizontal Composition: Name (Left 58-60%) + Portrait (Right 40-42%) */}
+        <div className="w-full flex flex-row items-end justify-between gap-1.5 sm:gap-3 relative">
           {/* Left: Dominant Name Typography */}
-          <div className="w-[58%] flex flex-col justify-end z-20 pb-0.5">
+          <div className="w-[58%] sm:w-[60%] flex flex-col justify-end z-20 pb-0.5">
             <h1
-              className="text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.84] text-[clamp(40px,11.8vw,68px)] select-none reveal"
+              className="text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.82] text-[clamp(44px,12.8vw,74px)] select-none reveal"
               style={{ fontFamily: "'Oswald', sans-serif", "--delay": "100ms" } as React.CSSProperties}
             >
               AYUSH<br />ANAND
@@ -196,12 +196,12 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
           {/* Right: Portrait & Circular Black Background */}
           <div
-            className="w-[42%] relative flex items-end justify-center pointer-events-none reveal"
+            className="w-[42%] sm:w-[40%] relative flex items-end justify-center pointer-events-none reveal"
             style={{ "--delay": "180ms" } as React.CSSProperties}
           >
             {/* Background Dark Circle */}
             <div
-              className="hero-backdrop-circle absolute rounded-full bg-[#222222] pointer-events-none transition-transform duration-700 w-[min(38vw,165px)] h-[min(38vw,165px)] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+              className="hero-backdrop-circle absolute rounded-full bg-[#222222] pointer-events-none transition-transform duration-700 w-[min(40vw,175px)] h-[min(40vw,175px)] sm:w-[min(36vw,200px)] sm:h-[min(36vw,200px)] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
               style={{ zIndex: 1 }}
             />
 
@@ -213,7 +213,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
               <img
                 src={colorPortraitSrc}
                 alt="Ayush Anand (B&W)"
-                className="max-w-none select-none block w-full h-auto max-h-[clamp(145px,40vw,225px)] object-contain object-bottom"
+                className="max-w-none select-none block w-full h-auto max-h-[clamp(165px,44vw,250px)] object-contain object-bottom"
                 style={{
                   filter: isRevealLayer
                     ? "drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))"
@@ -227,7 +227,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         {/* Subtitle, Description & Underline (Placed directly below the Name + Portrait composition) */}
         <div className="w-full flex flex-col mt-2.5 sm:mt-4 z-20">
           <p
-            className="text-[#111111] text-[10.5px] sm:text-[12.5px] tracking-[2px] sm:tracking-[3.2px] uppercase font-bold select-none reveal"
+            className="text-[#111111] text-[10.5px] sm:text-[12.5px] tracking-[2.2px] sm:tracking-[3.4px] uppercase font-bold select-none reveal"
             style={{ fontFamily: "'Inter', sans-serif", "--delay": "220ms" } as React.CSSProperties}
           >
             DEVELOPER &amp; PROBLEM SOLVER
