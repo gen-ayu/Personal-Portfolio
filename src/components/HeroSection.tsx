@@ -139,24 +139,24 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
   return (
     <section
       id="hero"
-      className="min-h-screen lg:h-screen lg:max-h-screen w-full flex flex-col justify-between relative overflow-hidden selection:bg-neutral-900 selection:text-[#F3EFE9]"
+      className="h-[100dvh] max-h-[100dvh] w-full flex flex-col justify-between relative overflow-hidden selection:bg-neutral-900 selection:text-[#F3EFE9]"
       style={{ backgroundColor: "#F3EFE9", color: "#111111" }}
     >
       {/* ── Top Header ─────────────────────────────────────────── */}
       <header
-        className="w-full flex items-start justify-between px-4 sm:px-8 lg:px-14 pt-3.5 sm:pt-6 lg:pt-8 pb-0 relative z-30 shrink-0 reveal"
+        className="w-full flex items-start justify-between px-5 sm:px-8 lg:px-14 pt-4 sm:pt-6 lg:pt-8 pb-0 relative z-30 shrink-0 reveal"
         style={{ "--delay": "0ms" } as React.CSSProperties}
       >
         {/* Left: Tagline */}
         <div className="flex flex-col gap-0.5 select-none">
           <span
-            className="text-[#111111] text-[9.5px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[14px] sm:leading-[16px]"
+            className="text-[#111111] text-[9px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[13px] sm:leading-[16px]"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             DESIGNING MEANINGFUL
           </span>
           <span
-            className="text-[#111111] text-[9.5px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[14px] sm:leading-[16px]"
+            className="text-[#111111] text-[9px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[13px] sm:leading-[16px]"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             DIGITAL EXPERIENCES
@@ -166,13 +166,13 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         {/* Right: Portfolio Year */}
         <div className="flex flex-col gap-0.5 items-end text-right select-none">
           <span
-            className="text-[#111111] text-[9.5px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[14px] sm:leading-[16px]"
+            className="text-[#111111] text-[9px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[13px] sm:leading-[16px]"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             PORTFOLIO
           </span>
           <span
-            className="text-[#111111] text-[9.5px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[14px] sm:leading-[16px]"
+            className="text-[#111111] text-[9px] sm:text-[11.5px] tracking-[1.4px] sm:tracking-[1.8px] uppercase font-bold leading-[13px] sm:leading-[16px]"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             2026
@@ -181,67 +181,64 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
       </header>
 
       {/* ── Mobile Main Hero Area (< lg) ───────────────────────── */}
-      <main className="lg:hidden w-full flex-1 min-h-0 flex flex-col justify-start pt-3 sm:pt-6 px-4 sm:px-8 pb-2 relative z-10 overflow-hidden">
-        {/* Horizontal Composition: Name (Left 58-60%) + Portrait (Right 40-42%) */}
-        <div className="w-full flex flex-row items-end justify-between gap-1.5 sm:gap-3 relative">
-          {/* Left: Dominant Name Typography */}
-          <div className="w-[58%] sm:w-[60%] flex flex-col justify-end z-20 pb-0.5">
-            <h1
-              className="text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.82] text-[clamp(44px,12.8vw,74px)] select-none reveal"
-              style={{ fontFamily: "'Oswald', sans-serif", "--delay": "100ms" } as React.CSSProperties}
-            >
-              AYUSH<br />ANAND
-            </h1>
-          </div>
+      <main className="lg:hidden w-full flex-1 min-h-0 relative overflow-hidden px-5 sm:px-8 pt-2 pb-0 flex flex-col justify-between z-10">
+        {/* Background Dark Circle */}
+        <div
+          className="hero-backdrop-circle absolute rounded-full bg-[#181818] pointer-events-none transition-transform duration-700 w-[78vw] h-[78vw] max-w-[340px] max-h-[340px] right-[-14vw] sm:right-[-6vw] top-[10%] sm:top-[12%]"
+          style={{ zIndex: 1 }}
+        />
 
-          {/* Right: Portrait & Circular Black Background */}
-          <div
-            className="w-[42%] sm:w-[40%] relative flex items-end justify-center pointer-events-none reveal"
-            style={{ "--delay": "180ms" } as React.CSSProperties}
-          >
-            {/* Background Dark Circle */}
-            <div
-              className="hero-backdrop-circle absolute rounded-full bg-[#222222] pointer-events-none transition-transform duration-700 w-[min(40vw,175px)] h-[min(40vw,175px)] sm:w-[min(36vw,200px)] sm:h-[min(36vw,200px)] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
-              style={{ zIndex: 1 }}
-            />
-
-            {/* Tight Foreground Portrait */}
-            <div
-              className="portrait-container relative inline-flex items-end justify-center select-none"
-              style={{ zIndex: 10, marginBottom: "-1px" }}
-            >
-              <img
-                src={colorPortraitSrc}
-                alt="Ayush Anand (B&W)"
-                className="max-w-none select-none block w-full h-auto max-h-[clamp(165px,44vw,250px)] object-contain object-bottom"
-                style={{
-                  filter: isRevealLayer
-                    ? "drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))"
-                    : "grayscale(100%) contrast(105%) drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))",
-                }}
-              />
-            </div>
-          </div>
+        {/* Large Editorial Portrait (Occupies 60–65% width, anchored to bottom right) */}
+        <div
+          className="portrait-container absolute right-[-10vw] sm:right-[-3vw] bottom-0 h-[82%] max-h-[480px] w-auto select-none pointer-events-none flex items-end justify-end"
+          style={{ zIndex: 10 }}
+        >
+          <img
+            src={colorPortraitSrc}
+            alt="Ayush Anand (B&W)"
+            className="max-w-none select-none block h-full w-auto object-contain object-bottom"
+            style={{
+              filter: isRevealLayer
+                ? "drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))"
+                : "grayscale(100%) contrast(108%) drop-shadow(0 0 1.2px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.09))",
+            }}
+          />
         </div>
 
-        {/* Subtitle, Description & Underline (Placed directly below the Name + Portrait composition) */}
-        <div className="w-full flex flex-col mt-2.5 sm:mt-4 z-20">
+        {/* Foreground Typography Layer (Overlaps the portrait and circle) */}
+        <div className="relative z-20 flex flex-col justify-start max-w-[75%] sm:max-w-[70%] pt-1 sm:pt-3">
+          {/* Extremely Large AYUSH ANAND Typography */}
+          <h1
+            className="text-[#181818] font-bold uppercase tracking-[-0.03em] leading-[0.80] text-[clamp(64px,19.2vw,92px)] select-none reveal"
+            style={{
+              fontFamily: "'Oswald', sans-serif",
+              WebkitTextStroke: "1px rgba(243, 239, 233, 0.95)",
+              paintOrder: "stroke fill",
+              "--delay": "100ms",
+            } as React.CSSProperties}
+          >
+            AYUSH<br />ANAND
+          </h1>
+
+          {/* Subtitle */}
           <p
-            className="text-[#111111] text-[10.5px] sm:text-[12.5px] tracking-[2.2px] sm:tracking-[3.4px] uppercase font-bold select-none reveal"
+            className="mt-3.5 sm:mt-5 text-[#111111] text-[10.5px] sm:text-[12.5px] tracking-[2.4px] sm:tracking-[3.4px] uppercase font-bold select-none reveal"
             style={{ fontFamily: "'Inter', sans-serif", "--delay": "220ms" } as React.CSSProperties}
           >
             DEVELOPER &amp; PROBLEM SOLVER
           </p>
 
+          {/* Bio Description */}
           <p
-            className="mt-1.5 mb-2.5 sm:mb-3.5 text-[#222222] text-[12px] sm:text-[13.5px] leading-[1.45] font-medium max-w-[380px] reveal"
+            className="mt-2 mb-3 sm:mb-4 text-[#222222] text-[12px] sm:text-[13.5px] leading-[1.42] font-medium max-w-[205px] sm:max-w-[240px] reveal"
             style={{ fontFamily: "'Inter', sans-serif", "--delay": "320ms" } as React.CSSProperties}
           >
             I build digital experiences that are intentional, impactful, and built to last.
           </p>
 
+          {/* Decorative Underline */}
           <div
-            className="hero-underline bg-[#111111] h-[2.5px] sm:h-[3px] w-[50px] sm:w-[65px] reveal"
+            className="hero-underline bg-[#111111] h-[3px] w-[46px] sm:w-[58px] reveal"
             style={{ "--delay": "400ms" } as React.CSSProperties}
           />
         </div>
@@ -342,38 +339,37 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         </div>
       </main>
 
-      {/* ── Horizontal Divider Line ────────────────────────────── */}
-      <div className="w-full px-4 sm:px-8 lg:px-14 relative z-20 shrink-0">
-        <hr className="w-full border-t border-black/25 m-0 p-0" />
-      </div>
+      {/* ── Mobile Footer Strip (< lg) ─────────────────────────── */}
+      <div className="lg:hidden w-full relative z-20 shrink-0">
+        <div className="w-full px-5 sm:px-8">
+          <hr className="w-full border-t border-black/25 m-0 p-0" />
+        </div>
 
-      {/* ── Bottom Section / Contact Footer Strip ─── */}
-      <footer
-        className="w-full px-4 sm:px-8 lg:px-14 pt-2.5 sm:pt-4 pb-3 sm:pb-5 relative z-20 shrink-0 reveal"
-        style={{ "--delay": "450ms" } as React.CSSProperties}
-      >
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 lg:gap-4">
-          {/* Contact Information Blocks */}
-          <div className="flex items-center justify-between sm:justify-start gap-2.5 sm:gap-6 lg:gap-11">
-            {/* Email Block */}
+        <footer
+          className="w-full px-5 sm:px-8 pt-2.5 pb-3 flex flex-col gap-2 reveal"
+          style={{ "--delay": "450ms" } as React.CSSProperties}
+        >
+          {/* Row 1: Email, Centered SCROLL Pill, Website */}
+          <div className="flex items-center justify-between">
+            {/* Email */}
             <a
               href="mailto:ayush.anand.giri@gmail.com"
-              className="flex items-center gap-1.5 sm:gap-3 group shrink-0"
+              className="flex items-center gap-1.5 group shrink-0"
             >
               <img
                 alt=""
                 src={imgEmail}
-                className="w-3.5 h-3.5 sm:w-[20px] sm:h-[20px] shrink-0"
+                className="w-3.5 h-3.5 shrink-0"
               />
               <div className="flex flex-col">
                 <span
-                  className="text-[#111111] text-[8.5px] sm:text-[10px] tracking-[1.4px] sm:tracking-[1.6px] uppercase font-bold leading-none mb-0.5 sm:mb-1 group-hover:text-[#FF5722] transition-colors"
+                  className="text-[#111111] text-[8px] tracking-[1.4px] uppercase font-bold leading-none mb-0.5 group-hover:text-[#FF5722] transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   EMAIL
                 </span>
                 <span
-                  className="text-[#111111] text-[10.5px] sm:text-[13.5px] font-medium leading-none group-hover:text-[#FF5722] transition-colors truncate max-w-[135px] xs:max-w-none"
+                  className="text-[#111111] text-[10px] font-medium leading-none group-hover:text-[#FF5722] transition-colors truncate max-w-[115px] xs:max-w-[140px]"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   ayush.anand.giri@gmail.com
@@ -381,86 +377,187 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
               </div>
             </a>
 
-            {/* Vertical Separator */}
-            <div className="hidden xs:block w-[1px] h-5 sm:h-7 bg-black/20 shrink-0" />
+            {/* Centered SCROLL Pill */}
+            <button
+              onClick={() =>
+                window.scrollBy({
+                  top: window.innerHeight * 0.75,
+                  behavior: "smooth",
+                })
+              }
+              className="bg-[#EAE4DC] border border-black/25 px-3 py-1 rounded-full text-[#111111] text-[9.5px] font-bold tracking-[2px] uppercase flex items-center gap-1 select-none cursor-pointer hover:border-[#FF5722] hover:text-[#FF5722] transition-colors shrink-0 shadow-2xs"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              <span>SCROLL</span>
+              <span className="text-[11px] leading-none">↓</span>
+            </button>
 
-            {/* Website Block */}
+            {/* Website */}
             <a
               href="https://ayushanand.dev"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 sm:gap-3 group shrink-0"
+              className="flex items-center gap-1.5 group shrink-0 text-right"
             >
-              <img
-                alt=""
-                src={imgWebsite}
-                className="w-3.5 h-3.5 sm:w-[20px] sm:h-[20px] shrink-0"
-              />
-              <div className="flex flex-col">
+              <div className="flex flex-col items-end">
                 <span
-                  className="text-[#111111] text-[8.5px] sm:text-[10px] tracking-[1.4px] sm:tracking-[1.6px] uppercase font-bold leading-none mb-0.5 sm:mb-1 group-hover:text-[#FF5722] transition-colors"
+                  className="text-[#111111] text-[8px] tracking-[1.4px] uppercase font-bold leading-none mb-0.5 group-hover:text-[#FF5722] transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   WEBSITE
                 </span>
                 <span
-                  className="text-[#111111] text-[10.5px] sm:text-[13.5px] font-medium leading-none group-hover:text-[#FF5722] transition-colors"
+                  className="text-[#111111] text-[10px] font-medium leading-none group-hover:text-[#FF5722] transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   ayushanand.dev
                 </span>
               </div>
-            </a>
-
-            {/* Vertical Separator */}
-            <div className="hidden sm:block w-[1px] h-5 sm:h-7 bg-black/20 shrink-0" />
-
-            {/* Location Block */}
-            <div className="hidden sm:flex items-center gap-1.5 sm:gap-3 shrink-0">
               <img
                 alt=""
-                src={imgLocation}
-                className="w-3.5 h-3.5 sm:w-[20px] sm:h-[20px] shrink-0"
+                src={imgWebsite}
+                className="w-3.5 h-3.5 shrink-0"
               />
-              <div className="flex flex-col">
-                <span
-                  className="text-[#111111] text-[8.5px] sm:text-[10px] tracking-[1.4px] sm:tracking-[1.6px] uppercase font-bold leading-none mb-0.5 sm:mb-1"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  LOCATION
-                </span>
-                <span
-                  className="text-[#111111] text-[10.5px] sm:text-[13.5px] font-medium leading-none"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  India
-                </span>
-              </div>
-            </div>
+            </a>
           </div>
 
-          {/* CTA Box */}
+          {/* Row 2: Full Width CTA Button */}
           <button
             onClick={handleScrollToContact}
-            className="w-full sm:w-[225px] lg:w-[245px] border border-[#111111] px-3 py-2 sm:py-2.5 flex flex-row sm:flex-col justify-between items-center sm:items-stretch gap-2 shrink-0 bg-transparent min-h-[42px] sm:min-h-[64px] hover:border-[#FF5722] group cursor-pointer transition-all duration-200"
+            className="w-full border border-black px-3.5 py-2 flex items-center justify-between bg-transparent hover:border-[#FF5722] group cursor-pointer transition-all duration-200 mt-0.5"
           >
-            <p
-              className="text-[#111111] text-[8.5px] sm:text-[10px] tracking-[1.1px] sm:tracking-[1.4px] uppercase font-bold leading-tight sm:leading-[1.35] text-left group-hover:text-[#FF5722] transition-colors"
+            <span
+              className="text-[#111111] text-[9px] tracking-[1.3px] uppercase font-bold leading-none group-hover:text-[#FF5722] transition-colors"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              <span className="sm:hidden">LET'S BUILD SOMETHING GREAT TOGETHER</span>
-              <span className="hidden sm:inline">LET'S BUILD<br />SOMETHING<br />GREAT TOGETHER</span>
-            </p>
-            <div className="flex justify-end sm:-mt-3.5 shrink-0">
-              <img
-                alt=""
-                src={imgArrow}
-                className="w-3.5 h-3.5 sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform"
-              />
-            </div>
+              LET'S BUILD SOMETHING GREAT TOGETHER
+            </span>
+            <img
+              alt=""
+              src={imgArrow}
+              className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0"
+            />
           </button>
+        </footer>
+      </div>
+
+      {/* ── Desktop Footer Strip (lg:) ─────────────────────────── */}
+      <div className="hidden lg:block w-full relative z-20 shrink-0">
+        <div className="w-full px-14">
+          <hr className="w-full border-t border-black/25 m-0 p-0" />
         </div>
-      </footer>
+
+        <footer
+          className="w-full px-14 pt-4 pb-5 relative z-20 reveal"
+          style={{ "--delay": "450ms" } as React.CSSProperties}
+        >
+          <div className="flex flex-row items-center justify-between gap-4">
+            {/* Contact Information Blocks */}
+            <div className="flex items-center gap-11">
+              {/* Email Block */}
+              <a
+                href="mailto:ayush.anand.giri@gmail.com"
+                className="flex items-center gap-3 group"
+              >
+                <img
+                  alt=""
+                  src={imgEmail}
+                  className="w-5 h-5 shrink-0"
+                />
+                <div className="flex flex-col">
+                  <span
+                    className="text-[#111111] text-[10px] tracking-[1.6px] uppercase font-bold leading-none mb-1 group-hover:text-[#FF5722] transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    EMAIL
+                  </span>
+                  <span
+                    className="text-[#111111] text-[13.5px] font-medium leading-none group-hover:text-[#FF5722] transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    ayush.anand.giri@gmail.com
+                  </span>
+                </div>
+              </a>
+
+              <div className="w-[1px] h-7 bg-black/20 shrink-0" />
+
+              {/* Website Block */}
+              <a
+                href="https://ayushanand.dev"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 group"
+              >
+                <img
+                  alt=""
+                  src={imgWebsite}
+                  className="w-5 h-5 shrink-0"
+                />
+                <div className="flex flex-col">
+                  <span
+                    className="text-[#111111] text-[10px] tracking-[1.6px] uppercase font-bold leading-none mb-1 group-hover:text-[#FF5722] transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    WEBSITE
+                  </span>
+                  <span
+                    className="text-[#111111] text-[13.5px] font-medium leading-none group-hover:text-[#FF5722] transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    ayushanand.dev
+                  </span>
+                </div>
+              </a>
+
+              <div className="w-[1px] h-7 bg-black/20 shrink-0" />
+
+              {/* Location Block */}
+              <div className="flex items-center gap-3">
+                <img
+                  alt=""
+                  src={imgLocation}
+                  className="w-5 h-5 shrink-0"
+                />
+                <div className="flex flex-col">
+                  <span
+                    className="text-[#111111] text-[10px] tracking-[1.6px] uppercase font-bold leading-none mb-1"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    LOCATION
+                  </span>
+                  <span
+                    className="text-[#111111] text-[13.5px] font-medium leading-none"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    India
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Box */}
+            <button
+              onClick={handleScrollToContact}
+              className="w-[245px] border border-[#111111] px-3.5 py-2.5 flex flex-col justify-between items-stretch gap-2.5 shrink-0 bg-transparent min-h-[64px] hover:border-[#FF5722] group cursor-pointer transition-all duration-200"
+            >
+              <p
+                className="text-[#111111] text-[10px] tracking-[1.4px] uppercase font-bold leading-[1.35] text-left group-hover:text-[#FF5722] transition-colors"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                LET'S BUILD<br />SOMETHING<br />GREAT TOGETHER
+              </p>
+              <div className="flex justify-end -mt-3.5 shrink-0">
+                <img
+                  alt=""
+                  src={imgArrow}
+                  className="w-[18px] h-[18px] group-hover:translate-x-1 transition-transform"
+                />
+              </div>
+            </button>
+          </div>
+        </footer>
+      </div>
     </section>
   );
 }
