@@ -11,6 +11,9 @@ export function useCursorReveal() {
   useEffect(() => {
     const overlay = overlayRef.current;
     if (!overlay) return;
+    if (typeof window !== "undefined" && window.matchMedia && (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 1024)) {
+      return;
+    }
 
     let targetX = -200;
     let targetY = -200;

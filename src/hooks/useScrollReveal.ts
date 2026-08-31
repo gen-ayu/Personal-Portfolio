@@ -26,8 +26,8 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
       return;
     }
 
-    const threshold = options?.threshold ?? 0.15;
-    const rootMargin = options?.rootMargin ?? "0px 0px -50px 0px";
+    const threshold = options?.threshold ?? 0.1;
+    const rootMargin = options?.rootMargin ?? "0px 0px -20px 0px";
     const once = options?.once ?? true;
 
     const observer = new IntersectionObserver(
@@ -35,11 +35,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const target = entry.target as HTMLElement;
-            // Use requestAnimationFrame so the initial translateY(40px) & opacity:0 styles
-            // are properly painted before transitioning to translateY(0) & opacity:1.
-            requestAnimationFrame(() => {
-              target.classList.add("revealed");
-            });
+            target.classList.add("revealed");
 
             if (once) {
               obs.unobserve(target);
@@ -80,10 +76,14 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
     // Initial scan
     scanAndObserve();
 
-    // Observe DOM mutations so dynamic content or conditional elements are also observed
+    // Observe DOM mutations with debouncing to prevent thrashing
+    let mutationTimer: number | undefined;
     const containerNode = ref.current ?? document.body;
     const mutationObserver = new MutationObserver(() => {
-      scanAndObserve();
+      if (mutationTimer) window.clearTimeout(mutationTimer);
+      mutationTimer = window.setTimeout(() => {
+        scanAndObserve();
+      }, 150);
     });
 
     if (containerNode) {
@@ -96,6 +96,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
     return () => {
       observer.disconnect();
       mutationObserver.disconnect();
+      if (mutationTimer) window.clearTimeout(mutationTimer);
     };
   }, [ref, options?.threshold, options?.rootMargin, options?.root, options?.once]);
 

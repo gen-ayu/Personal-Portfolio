@@ -111,6 +111,9 @@ export default function App() {
     let animationFrameId: number;
 
     const handleScroll = () => {
+      // On mobile screens (<768px), ScrollWheel is hidden, so skip calculations to keep main thread completely idle
+      if (window.innerWidth < 768) return;
+
       animationFrameId = requestAnimationFrame(() => {
         const orientationEl = document.getElementById("orientation-strip");
         const contactEl = document.getElementById("contact");
@@ -155,25 +158,6 @@ export default function App() {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
-
-  // 3. Drive shared disk rotation angle — one RAF loop, one source of truth.
-  //    Both the base layer and overlay layer disk elements read from --disk-angle
-  //    on :root so they always show exactly the same rotation angle.
-  useEffect(() => {
-    const DEG_PER_MS = 360 / 20000; // 20 000ms per full revolution
-    let startTime: number | null = null;
-    let rafId: number;
-
-    const tick = (now: number) => {
-      if (startTime === null) startTime = now;
-      const angle = ((now - startTime) * DEG_PER_MS) % 360;
-      document.documentElement.style.setProperty("--disk-angle", `${angle.toFixed(3)}deg`);
-      rafId = requestAnimationFrame(tick);
-    };
-
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
   }, []);
 
   return (

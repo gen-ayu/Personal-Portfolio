@@ -19,8 +19,8 @@ export default function ScrollReminder() {
   };
 
   const resetInactivityTimer = () => {
-    // Disappear smoothly under 500ms upon scroll/activity
-    setIsVisible(false);
+    // Only update state if currently visible to avoid thrashing re-renders during scroll
+    setIsVisible((prev) => (prev ? false : prev));
 
     if (timerRef.current) {
       window.clearTimeout(timerRef.current);

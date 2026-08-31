@@ -3,10 +3,18 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     background-color: #F3EFE9;
     color: #111111;
     cursor: none !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  /* Smooth programmatic / mouse scroll on desktop without fighting mobile touch drag */
+  @media (pointer: fine) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -16,6 +24,8 @@
     padding: 0;
     background-color: #F3EFE9;
     cursor: none !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 
   * {
@@ -27,6 +37,9 @@
       cursor: auto !important;
     }
     .cursor-dot {
+      display: none !important;
+    }
+    .reveal-layer-overlay {
       display: none !important;
     }
   }
@@ -63,13 +76,19 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* ── About Section: Disk Spin Animation ── */
-/* Rotation is driven by a single RAF loop in App.tsx that writes --disk-angle
-   to :root. Both the base layer and overlay layer read the same value,
-   so they are always pixel-perfect in sync under the cursor reveal lens. */
+/* ── About Section: Pure CSS Disk Spin Animation (Compositor thread, 0 JS / root style overhead) ── */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .about-disk-spin {
   display: inline-flex;
-  transform: rotate(var(--disk-angle, 0deg));
+  animation: spin-slow 20s linear infinite;
   will-change: transform;
 }
 
@@ -85,6 +104,7 @@
 .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 /* Ensure reveal overlay layer elements are always at full opacity and resting position
@@ -114,6 +134,12 @@
   z-index: 50;
   overflow: hidden;
   will-change: clip-path;
+}
+
+@media (pointer: coarse), (max-width: 1023px) {
+  .reveal-layer-overlay {
+    display: none !important;
+  }
 }
 
 /* Default elements (black/white text, neutral borders, icons) turn orange in reveal */

@@ -20,6 +20,9 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
   useEffect(() => {
     if (isRevealLayer) return;
+    if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
     const colorImg = colorImgRef.current;
     const container = portraitRef.current;
     if (!colorImg || !container) return;
@@ -139,7 +142,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
   return (
     <section
       id="hero"
-      className="min-h-[100dvh] lg:h-screen lg:max-h-screen w-full flex flex-col justify-between relative overflow-x-hidden lg:overflow-hidden selection:bg-neutral-900 selection:text-[#F3EFE9]"
+      className="min-h-[100svh] sm:min-h-screen lg:h-screen lg:max-h-screen w-full flex flex-col justify-between relative overflow-x-hidden lg:overflow-hidden selection:bg-neutral-900 selection:text-[#F3EFE9]"
       style={{ backgroundColor: "#F3EFE9", color: "#111111" }}
     >
       {/* ── Top Header ─────────────────────────────────────────── */}
