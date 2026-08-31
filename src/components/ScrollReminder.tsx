@@ -3,7 +3,20 @@ import { useState, useEffect, useRef } from "react";
 export default function ScrollReminder() {
   const [isVisible, setIsVisible] = useState(false);
   const timerRef = useRef<number | null>(null);
-  const hasMovedRef = useRef(false);
+
+  const checkAndShow = () => {
+    const maxScroll =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const canScrollFurther = maxScroll - window.scrollY > 200;
+    const isDesktop = window.innerWidth >= 1024;
+    const hasScrolledPastHero = window.scrollY > 80;
+
+    // On desktop, show across all scrollable sections including Hero section when idle.
+    // On mobile (< 1024px), show once scrolled past Hero section where the static footer pill is located.
+    if (canScrollFurther && (isDesktop || hasScrolledPastHero)) {
+      setIsVisible(true);
+    }
+  };
 
   const resetInactivityTimer = () => {
     // Disappear smoothly under 500ms upon scroll/activity
@@ -15,42 +28,31 @@ export default function ScrollReminder() {
 
     // 5 seconds inactivity timer
     timerRef.current = window.setTimeout(() => {
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const canScrollFurther = maxScroll - window.scrollY > 250;
-      const hasScrolledPastHero = window.scrollY > 120;
-
-      if (canScrollFurther && hasScrolledPastHero) {
-        setIsVisible(true);
-      }
+      checkAndShow();
     }, 5000);
   };
 
   useEffect(() => {
-    // Initial timer only triggers if already scrolled past hero
+    // Initial 3-second timer on first load
     timerRef.current = window.setTimeout(() => {
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const hasScrolledPastHero = window.scrollY > 120;
-      if (maxScroll - window.scrollY > 250 && hasScrolledPastHero) {
-        setIsVisible(true);
-      }
+      checkAndShow();
     }, 3000);
 
     const handleScrollOrInteract = () => {
-      hasMovedRef.current = true;
       resetInactivityTimer();
     };
 
     window.addEventListener("scroll", handleScrollOrInteract, { passive: true });
     window.addEventListener("wheel", handleScrollOrInteract, { passive: true });
     window.addEventListener("touchstart", handleScrollOrInteract, { passive: true });
+    window.addEventListener("mousemove", handleScrollOrInteract, { passive: true });
 
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
       window.removeEventListener("scroll", handleScrollOrInteract);
       window.removeEventListener("wheel", handleScrollOrInteract);
       window.removeEventListener("touchstart", handleScrollOrInteract);
+      window.removeEventListener("mousemove", handleScrollOrInteract);
     };
   }, []);
 
