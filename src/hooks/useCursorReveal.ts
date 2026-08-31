@@ -56,6 +56,10 @@ export function useCursorReveal() {
     };
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Only track if pointer is fine (desktop/mouse)
+      if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) {
+        return;
+      }
       // Instant position tracking (no delay/easing)
       targetX = e.pageX;
       targetY = e.pageY;

@@ -51,66 +51,66 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="w-full bg-[#F3EFE9] text-[#111111] py-14 sm:py-24 px-4 sm:px-8 lg:px-14 relative z-10 border-b border-black/20 selection:bg-neutral-900 selection:text-[#F3EFE9]"
+      className="w-full bg-[#F3EFE9] text-[#111111] py-20 sm:py-28 px-6 sm:px-10 lg:px-14 relative z-10 border-b border-black/20 selection:bg-neutral-900 selection:text-[#F3EFE9]"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal" style={{ "--delay": "0ms" } as React.CSSProperties}>
           <div>
-            <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-2 sm:mb-3">
+            <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-semibold tracking-wider block mb-3">
               01 / 05
             </span>
             <h2
-              className="text-[clamp(36px,7.5vw,110px)] font-bold uppercase tracking-[-0.02em] leading-[0.88]"
+              className="text-[clamp(42px,7.5vw,110px)] font-bold uppercase tracking-[-0.02em] leading-[0.88]"
               style={{ fontFamily: "'Oswald', sans-serif" }}
             >
               Featured<br />
               projects
             </h2>
           </div>
-          <p className="text-[#222222]/80 text-[13.5px] sm:text-[15px] max-w-[340px] leading-relaxed font-sans lg:text-right">
+          <p className="text-[#222222]/80 text-[14px] sm:text-[15px] max-w-[340px] leading-relaxed font-sans lg:text-right">
             Selected work, personal experiments, and a few things that made me look twice.
           </p>
         </div>
 
-        <div className="section-divider-line w-full h-[1.5px] bg-[#111111] mb-8 sm:mb-16" />
+        <div className="section-divider-line w-full h-[1.5px] bg-[#111111] mb-12 sm:mb-16" />
 
         {/* Projects List */}
         <div className="flex flex-col divide-y divide-black/15">
           {projects.map((project, idx) => (
             <article
               key={project.title}
-              className="py-10 sm:py-16 first:pt-0 last:pb-8 group transition-colors reveal"
+              className="py-12 sm:py-16 first:pt-0 last:pb-12 group transition-colors reveal"
               style={{ "--delay": `${idx * 140}ms` } as React.CSSProperties}
             >
-              <div className="flex flex-col lg:flex-row items-start justify-between gap-6 sm:gap-8">
+              <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
                 {/* Left Side: Number, Title, Dates, Subtitle */}
-                <div className="w-full lg:w-5/12 flex flex-col gap-2.5 sm:gap-3">
+                <div className="lg:w-5/12 flex flex-col gap-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-[#FF5722] font-mono text-[13px] sm:text-[14px] font-bold">
+                    <span className="text-[#FF5722] font-mono text-[14px] font-bold">
                       {project.num}
                     </span>
-                    <span className="text-[#222222]/60 font-mono text-[11px] sm:text-[12px] uppercase tracking-wider">
+                    <span className="text-[#222222]/60 font-mono text-[12px] uppercase tracking-wider">
                       {project.period}
                     </span>
                   </div>
 
                   <h3
-                    className="text-[clamp(28px,4vw,56px)] font-bold uppercase tracking-tight leading-none text-[#111111] group-hover:text-[#FF5722]"
+                    className="text-[clamp(32px,4vw,56px)] font-bold uppercase tracking-tight leading-none text-[#111111] group-hover:text-[#FF5722]"
                     style={{ fontFamily: "'Oswald', sans-serif" }}
                   >
                     {project.title}
                   </h3>
 
-                  <p className="text-[#111111]/75 text-[13.5px] sm:text-[15px] font-semibold tracking-wide">
+                  <p className="text-[#111111]/75 text-[14px] sm:text-[15px] font-semibold tracking-wide">
                     {project.subtitle}
                   </p>
 
-                  <div className="mt-2 sm:mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="projects-tech-tag px-2.5 py-1 text-[10.5px] sm:text-[11px] font-mono uppercase tracking-wider bg-black/5 border border-black/15 rounded text-[#222222] font-medium"
+                        className="projects-tech-tag px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider bg-black/5 border border-black/15 rounded text-[#222222] font-medium"
                       >
                         {tech}
                       </span>
@@ -119,12 +119,12 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Right Side: Description, Bullet Points, and CTA Link */}
-                <div className="w-full lg:w-6/12 flex flex-col justify-between gap-5 sm:gap-6">
-                  <p className="text-[#222222] text-[14.5px] sm:text-[16px] leading-relaxed">
+                <div className="lg:w-6/12 flex flex-col justify-between gap-6">
+                  <p className="text-[#222222] text-[15px] sm:text-[16px] leading-relaxed">
                     {project.description}
                   </p>
 
-                  <ul className="space-y-2 sm:space-y-2.5 text-[13px] sm:text-[14px] text-[#222222]/85 leading-normal">
+                  <ul className="space-y-2.5 text-[13.5px] sm:text-[14px] text-[#222222]/85 leading-normal">
                     {project.highlights.map((point, pIdx) => (
                       <li key={pIdx} className="flex items-start gap-2.5">
                         <span className="text-[#FF5722] text-base leading-none mt-0.5">•</span>
@@ -133,18 +133,18 @@ export default function ProjectsSection() {
                     ))}
                   </ul>
 
-                  <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-black/10">
+                  <div className="pt-4 flex items-center justify-between border-t border-black/10">
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-[11.5px] sm:text-[12.5px] font-bold tracking-[1.5px] uppercase text-[#111111] hover:text-[#FF5722]"
+                      className="inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-bold tracking-[1.5px] uppercase text-[#111111] hover:text-[#FF5722]"
                       style={{ fontFamily: "'Inter', sans-serif" }}
                     >
                       <span>VIEW PROJECT &amp; REPO</span>
                       <span className="text-base group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform">↗</span>
                     </a>
-                    <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-widest px-2 py-0.5 border border-black/20 text-neutral-600">
+                    <span className="text-[10.5px] font-mono uppercase tracking-widest px-2 py-0.5 border border-black/20 text-neutral-600">
                       {project.status}
                     </span>
                   </div>
@@ -156,17 +156,17 @@ export default function ProjectsSection() {
 
         {/* End of Section Card / Note */}
         <div
-          className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-black/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 reveal"
+          className="mt-8 pt-8 border-t border-black/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 reveal"
           style={{ "--delay": "100ms" } as React.CSSProperties}
         >
-          <p className="text-[#222222]/70 text-[12.5px] sm:text-[13px] font-sans">
+          <p className="text-[#222222]/70 text-[13px] font-sans">
             More details available on request. More projects are in active development.
           </p>
           <a
             href="https://github.com/gen-ayu"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-[11.5px] sm:text-[12px] font-bold tracking-[1.5px] uppercase text-[#111111] hover:text-[#FF5722] border-b border-black/40 pb-0.5"
+            className="inline-flex items-center gap-2 text-[12px] font-bold tracking-[1.5px] uppercase text-[#111111] hover:text-[#FF5722] border-b border-black/40 pb-0.5"
           >
             <span>MORE ON GITHUB</span>
             <span>↗</span>

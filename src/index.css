@@ -6,7 +6,7 @@
     scroll-behavior: smooth;
     background-color: #F3EFE9;
     color: #111111;
-    -webkit-text-size-adjust: 100%;
+    cursor: none !important;
   }
 
   body {
@@ -15,39 +15,38 @@
     margin: 0;
     padding: 0;
     background-color: #F3EFE9;
-    width: 100%;
+    cursor: none !important;
   }
 
-  /* Custom cursor only on pointer/mouse devices */
-  @media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+
+  @media (pointer: coarse) {
     html, body, * {
-      cursor: none !important;
+      cursor: auto !important;
+    }
+    .cursor-dot {
+      display: none !important;
     }
   }
 }
 
 /* ── Custom Cursor Dot (mix-blend-mode: difference = auto color inversion) ── */
 .cursor-dot {
-  display: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .cursor-dot {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    mix-blend-mode: difference;
-    pointer-events: none !important;
-    transform: translate(-50%, -50%);
-    will-change: left, top;
-    transition: opacity 0.2s ease;
-    z-index: 9999;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  mix-blend-mode: difference;
+  pointer-events: none !important;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+  transition: opacity 0.2s ease;
+  z-index: 9999;
 }
 
 
@@ -105,23 +104,16 @@
 }
 
 .reveal-layer-overlay {
-  display: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .reveal-layer-overlay {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none !important;
-    user-select: none;
-    z-index: 50;
-    overflow: hidden;
-    will-change: clip-path;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none !important;
+  user-select: none;
+  z-index: 50;
+  overflow: hidden;
+  will-change: clip-path;
 }
 
 /* Default elements (black/white text, neutral borders, icons) turn orange in reveal */
@@ -150,6 +142,31 @@
 /* Hero section background turns black inside the reveal lens */
 .reveal-layer-overlay #hero {
   background-color: #111111 !important;
+}
+
+/* Hero outlined text styling for mobile overlap effect */
+.hero-outlined-text {
+  -webkit-text-stroke: 1.15px rgba(255, 255, 255, 0.88);
+  color: transparent;
+}
+
+@media (min-width: 1024px) {
+  .hero-outlined-text {
+    -webkit-text-stroke: 0px !important;
+    color: #222222 !important;
+  }
+}
+
+.reveal-layer-overlay .hero-outlined-text {
+  -webkit-text-stroke: 1.15px #FF5722 !important;
+  color: transparent !important;
+}
+
+@media (min-width: 1024px) {
+  .reveal-layer-overlay .hero-outlined-text {
+    -webkit-text-stroke: 0px !important;
+    color: #FF5722 !important;
+  }
 }
 
 /* Hero backdrop circle behind portrait turns solid orange */

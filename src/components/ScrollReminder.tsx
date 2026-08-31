@@ -18,19 +18,21 @@ export default function ScrollReminder() {
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
       const canScrollFurther = maxScroll - window.scrollY > 250;
+      const hasScrolledPastHero = window.scrollY > 120;
 
-      if (canScrollFurther) {
+      if (canScrollFurther && hasScrolledPastHero) {
         setIsVisible(true);
       }
     }, 5000);
   };
 
   useEffect(() => {
-    // Initial 3-second timer on first load
+    // Initial timer only triggers if already scrolled past hero
     timerRef.current = window.setTimeout(() => {
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll - window.scrollY > 250) {
+      const hasScrolledPastHero = window.scrollY > 120;
+      if (maxScroll - window.scrollY > 250 && hasScrolledPastHero) {
         setIsVisible(true);
       }
     }, 3000);
@@ -60,7 +62,7 @@ export default function ScrollReminder() {
     <aside
       onClick={handleScrollDown}
       aria-label="Scroll down reminder"
-      className="hidden lg:flex fixed left-1/2 md:left-[55%] -translate-x-1/2 bottom-[84px] z-40 items-center gap-1.5 text-[#111111]/75 bg-[#F3EFE9] px-3.5 py-1.5 rounded-full border border-black/25 shadow-xs text-[11px] tracking-[2.4px] uppercase font-bold select-none cursor-pointer group hover:text-[#FF5722] hover:border-[#FF5722] hover:bg-white"
+      className="fixed left-1/2 md:left-[55%] -translate-x-1/2 bottom-[72px] sm:bottom-[78px] lg:bottom-[84px] z-40 flex items-center gap-1.5 text-[#111111]/75 bg-[#F3EFE9] px-3.5 py-1.5 rounded-full border border-black/25 shadow-xs text-[10px] sm:text-[11px] tracking-[2.4px] uppercase font-bold select-none cursor-pointer group hover:text-[#FF5722] hover:border-[#FF5722] hover:bg-white"
       style={{
         fontFamily: "'Inter', sans-serif",
         opacity: isVisible ? 1 : 0,
