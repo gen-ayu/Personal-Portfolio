@@ -188,7 +188,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         {/* Left Column: Typography & Bio */}
         <div className="flex-1 flex flex-col justify-end pb-5 sm:pb-7 lg:pb-8 z-20 max-w-2xl">
           <h1
-            className="text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal"
+            className="pt-[160px] text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal"
             style={{ fontFamily: "'Oswald', sans-serif", "--delay": "100ms" } as React.CSSProperties}
           >
             AYUSH<br />ANAND
@@ -226,8 +226,8 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             style={{
               width: "min(35.5vw, 58vh, 530px)",
               height: "min(35.5vw, 58vh, 530px)",
-              right: "calc(clamp(-6px, 0.5vw, 20px) + 60px)",
-              top: "40%",
+              right: "clamp(-6px, 0.5vw, 20px)",
+              top: "calc(40% - 100px)",
               transform: "translateY(-50%)",
               zIndex: 1,
             }}
@@ -239,8 +239,8 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             className="portrait-container relative inline-flex items-end justify-center pointer-events-auto cursor-pointer select-none"
             style={{
               zIndex: 10,
-              marginRight: "clamp(10px, 3.5vw, 55px)",
-              marginBottom: "-1px",
+              marginRight: "calc(clamp(10px, 3.5vw, 55px) - 60px)",
+              marginBottom: "99px",
             }}
           >
             {/* Black and White Base Portrait */}
@@ -284,10 +284,10 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         <div
           className="hero-backdrop-circle absolute rounded-full bg-[#1b1b1b] pointer-events-none transition-transform duration-700 z-1"
           style={{
-            width: "clamp(260px, 76vw, 360px)",
-            height: "clamp(260px, 76vw, 360px)",
-            right: "-20px",
-            top: "25px",
+            width: "clamp(280px, 76vw, 380px)",
+            height: "clamp(280px, 76vw, 380px)",
+            right: "-100px",
+            top: "75px",
             zIndex: 1,
           }}
         />
@@ -297,7 +297,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
           {/* Giant Display Name with Outlined Overlap on Mobile */}
           <div>
             <h1
-              className="font-bold uppercase tracking-[-0.03em] leading-[0.84] text-[clamp(62px,18vw,98px)] select-none reveal"
+              className="pt-[160px] font-bold uppercase tracking-[-0.03em] leading-[0.84] text-[clamp(62px,18vw,98px)] select-none reveal"
               style={{ fontFamily: "'Oswald', sans-serif", "--delay": "100ms" } as React.CSSProperties}
             >
               <span className="block">
@@ -337,7 +337,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
         {/* Right Column: Foreground Portrait */}
         <div
-          className="absolute right-[-15px] sm:right-2 bottom-0 flex-1 min-h-0 flex items-end justify-end h-[62vh] max-h-[70%] sm:max-h-[82%] pointer-events-none reveal z-10"
+          className="absolute right-[-75px] sm:right-[-58px] bottom-[100px] flex-1 min-h-0 flex items-end justify-end h-[62vh] max-h-[70%] sm:max-h-[82%] pointer-events-none reveal z-10"
           style={{ "--delay": "180ms" } as React.CSSProperties}
         >
           <div
