@@ -8,12 +8,8 @@ export default function ScrollReminder() {
     const maxScroll =
       document.documentElement.scrollHeight - window.innerHeight;
     const canScrollFurther = maxScroll - window.scrollY > 200;
-    const isDesktop = window.innerWidth >= 1024;
-    const hasScrolledPastHero = window.scrollY > 80;
 
-    // On desktop, show across all scrollable sections including Hero section when idle.
-    // On mobile (< 1024px), show once scrolled past Hero section where the static footer pill is located.
-    if (canScrollFurther && (isDesktop || hasScrolledPastHero)) {
+    if (canScrollFurther) {
       setIsVisible(true);
     }
   };

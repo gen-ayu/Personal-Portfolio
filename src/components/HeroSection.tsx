@@ -125,13 +125,6 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
     };
   }, [isRevealLayer]);
 
-  const handleScrollToProjects = () => {
-    const el = document.getElementById("projects");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const handleScrollToContact = () => {
     const el = document.getElementById("contact");
     if (el) {
@@ -293,7 +286,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         />
 
         {/* Left Column: Typography & Bio */}
-        <div className="relative z-20 flex-1 flex flex-col justify-between pb-2 sm:pb-7 max-w-2xl">
+        <div className="relative z-20 flex-1 flex flex-col justify-between pb-1 sm:pb-7 max-w-2xl">
           {/* Giant Display Name with Outlined Overlap on Mobile */}
           <div>
             <h1
@@ -312,7 +305,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
           </div>
 
           {/* Subtitle, Paragraph & Underline */}
-          <div className="mt-auto pt-2 sm:pt-5">
+          <div className="mt-auto pt-3 sm:pt-5">
             <p
               className="text-[#111111] text-[11.5px] sm:text-[14px] tracking-[2.6px] sm:tracking-[3.5px] uppercase font-bold select-none leading-tight font-sans reveal"
               style={{ fontFamily: "'Inter', sans-serif", "--delay": "220ms" } as React.CSSProperties}
@@ -321,7 +314,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             </p>
 
             <p
-              className="mt-2 sm:mt-4 mb-3 sm:mb-6 text-[#222222] text-[12px] sm:text-[14px] leading-[1.38] sm:leading-[1.55] font-medium max-w-[155px] sm:max-w-[240px] font-sans reveal"
+              className="mt-2 sm:mt-4 mb-2 sm:mb-5 text-[#222222] text-[12px] sm:text-[14px] leading-[1.42] sm:leading-[1.55] font-medium max-w-[230px] sm:max-w-[280px] font-sans reveal"
               style={{ fontFamily: "'Inter', sans-serif", "--delay": "320ms" } as React.CSSProperties}
             >
               I build digital experiences that are intentional, impactful, and built to last.
@@ -329,7 +322,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
             {/* Left Decorative Underline */}
             <div
-              className="hero-underline bg-[#111111] h-[3px] sm:h-[3.5px] w-[50px] sm:w-[80px] mt-1 reveal"
+              className="hero-underline bg-[#111111] h-[3px] sm:h-[3.5px] w-[50px] sm:w-[80px] mt-1.5 reveal"
               style={{ "--delay": "400ms" } as React.CSSProperties}
             />
           </div>
@@ -374,7 +367,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
       >
         {/* ── MOBILE / TABLET FOOTER (< lg) ── */}
         <div className="flex flex-col lg:hidden w-full gap-2.5 sm:gap-3">
-          {/* Top Row: Email (Left), Scroll Pill (Center), Website (Right) */}
+          {/* Top Row: Email (Left), Website (Right) */}
           <div className="w-full flex items-center justify-between gap-1.5 sm:gap-3">
             {/* Email Block */}
             <a
@@ -401,19 +394,6 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
                 </span>
               </div>
             </a>
-
-            {/* Center Scroll Pill Button */}
-            <button
-              onClick={handleScrollToProjects}
-              className="rounded-full border border-[#111111] px-3 sm:px-4 py-1.5 flex items-center justify-center gap-1 shrink-0 bg-transparent hover:bg-[#111111] hover:text-[#F3EFE9] group cursor-pointer transition-all duration-200"
-            >
-              <span
-                className="text-[#111111] text-[9.5px] sm:text-[10.5px] tracking-[1.4px] uppercase font-bold leading-none group-hover:text-[#F3EFE9] transition-colors"
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                SCROLL ↓
-              </span>
-            </button>
 
             {/* Website Block */}
             <a
