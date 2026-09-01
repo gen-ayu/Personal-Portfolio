@@ -284,10 +284,10 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         <div
           className="hero-backdrop-circle absolute rounded-full bg-[#1b1b1b] pointer-events-none transition-transform duration-700 z-1"
           style={{
-            width: "clamp(280px, 76vw, 380px)",
-            height: "clamp(280px, 76vw, 380px)",
+            width: "clamp(360px, 76vw,460px)",
+            height: "clamp(360px, 76vw, 460px)",
             right: "-90px",
-            top: "75px",
+            top: "10px",
             zIndex: 1,
           }}
         />
