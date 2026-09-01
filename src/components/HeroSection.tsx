@@ -286,7 +286,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
           style={{
             width: "clamp(280px, 76vw, 380px)",
             height: "clamp(280px, 76vw, 380px)",
-            right: "-100px",
+            right: "-90px",
             top: "75px",
             zIndex: 1,
           }}
