@@ -181,11 +181,10 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         {/* Left Column: Typography & Bio */}
         <div className="flex-1 flex flex-col justify-end pb-5 sm:pb-7 lg:pb-8 z-20 max-w-2xl">
           <h1
-            className="text-white font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal mix-blend-difference"
+            className="text-[#111111] font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal"
             style={{
               fontFamily: "'Oswald', sans-serif",
-              color: "#FFFFFF",
-              mixBlendMode: "difference",
+              color: "#111111",
               "--delay": "100ms",
             } as React.CSSProperties}
           >
