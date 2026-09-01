@@ -8,10 +8,90 @@ import AboutSection from "./components/AboutSection";
 import ExperienceSection from "./components/ExperienceSection";
 import ContactSection from "./components/ContactSection";
 import ScrollReminder from "./components/ScrollReminder";
+import NotFoundPage from "./components/NotFoundPage";
 import { useCursorReveal } from "./hooks/useCursorReveal";
 import { useScrollReveal } from "./hooks/useScrollReveal";
 
+const is404Route = (path: string, hash: string) => {
+  if (hash === "#/404" || hash === "#404") return true;
+  const clean = path.replace(/\/$/, "");
+  return clean !== "" && clean !== "/index.html";
+};
+
 export default function App() {
+  // Routing state for unmatched path (404) vs root portfolio
+  const [currentPath, setCurrentPath] = useState(() =>
+    typeof window !== "undefined" ? window.location.pathname : "/"
+  );
+  const [currentHash, setCurrentHash] = useState(() =>
+    typeof window !== "undefined" ? window.location.hash : ""
+  );
+
+  const is404 = is404Route(currentPath, currentHash);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+      setCurrentHash(window.location.hash);
+    };
+
+    window.addEventListener("popstate", handleLocationChange);
+    window.addEventListener("hashchange", handleLocationChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("hashchange", handleLocationChange);
+    };
+  }, []);
+
+  const handleGoHome = () => {
+    if (window.location.pathname !== "/" || window.location.hash) {
+      window.history.pushState(null, "", "/");
+    }
+    setCurrentPath("/");
+    setCurrentHash("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleGoToChibidesk = (targetHash = "#chibidesk-project") => {
+    const hash = targetHash.startsWith("#") ? targetHash : `#${targetHash}`;
+    const targetId = hash.replace(/^#/, "");
+
+    if (window.location.pathname !== "/" || window.location.hash !== hash) {
+      window.history.pushState(null, "", `/${hash}`);
+    }
+    setCurrentPath("/");
+    setCurrentHash(hash);
+
+    setTimeout(() => {
+      const el =
+        document.getElementById(targetId) ||
+        document.getElementById("chibidesk-project") ||
+        document.getElementById("chibidesk");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 60);
+  };
+
+  // Scroll to ChibiDesk project card on initial load if hash is present
+  useEffect(() => {
+    if (
+      !is404 &&
+      (currentHash === "#chibidesk-project" || currentHash === "#chibidesk")
+    ) {
+      const timer = setTimeout(() => {
+        const el =
+          document.getElementById("chibidesk-project") ||
+          document.getElementById("chibidesk");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [is404, currentHash]);
+
   // Activate circular cursor reveal engine
   const revealOverlayRef = useCursorReveal();
 
@@ -31,8 +111,12 @@ export default function App() {
       dot.style.opacity = "1";
     };
 
-    const hide = () => { dot.style.opacity = "0"; };
-    const show = () => { dot.style.opacity = "1"; };
+    const hide = () => {
+      dot.style.opacity = "0";
+    };
+    const show = () => {
+      dot.style.opacity = "1";
+    };
 
     window.addEventListener("mousemove", move, { passive: true });
     document.documentElement.addEventListener("mouseleave", hide);
@@ -45,7 +129,6 @@ export default function App() {
     };
   }, []);
 
-
   const [activeSection, setActiveSection] = useState(1); // 1 to 5
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isWheelVisible, setIsWheelVisible] = useState(false);
@@ -55,7 +138,9 @@ export default function App() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
   const [contactHoneypot, setContactHoneypot] = useState("");
-  const [contactStatus, setContactStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [contactStatus, setContactStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [contactErrorMessage, setContactErrorMessage] = useState("");
 
   const contactFormState = {
@@ -77,6 +162,8 @@ export default function App() {
 
   // 1. Intersection Observer to reliably detect current section (1 to 5)
   useEffect(() => {
+    if (is404) return;
+
     const sectionIds = ["projects", "skills", "about", "experience", "contact"];
     const sectionElements = sectionIds
       .map((id) => document.getElementById(id))
@@ -104,14 +191,15 @@ export default function App() {
     return () => {
       sectionElements.forEach((el) => observer.unobserve(el));
     };
-  }, []);
+  }, [is404]);
 
   // 2. Track scroll position for wheel visibility & downward track translation
   useEffect(() => {
+    if (is404) return;
     let animationFrameId: number;
 
     const handleScroll = () => {
-      // On mobile screens (<768px), ScrollWheel is hidden, so skip calculations to keep main thread completely idle
+      // On mobile screens (<768px), ScrollWheel is hidden, so skip calculations
       if (window.innerWidth < 768) return;
 
       animationFrameId = requestAnimationFrame(() => {
@@ -158,7 +246,7 @@ export default function App() {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [is404]);
 
   return (
     <div
@@ -167,60 +255,88 @@ export default function App() {
     >
       {/* Cursor dot — white with mix-blend-mode:difference inverts any background automatically */}
       <div id="cursor-dot" ref={dotRef} className="cursor-dot" style={{ opacity: 0 }} />
-      {/* ── Persistent Scroll Wheel Indicator (Middle 80vh, starting 20% down) ── */}
-      <ScrollWheel
-        activeSection={activeSection}
-        scrollProgress={scrollProgress}
-        isVisible={isWheelVisible}
-      />
 
-      {/* ── Base Interactive Content Tree ────────────────────────────── */}
-      {/* Section 00: Hero Intro */}
-      <HeroSection />
+      {is404 ? (
+        <>
+          {/* Base Interactive 404 Page */}
+          <NotFoundPage
+            onGoHome={handleGoHome}
+            onGoToChibidesk={handleGoToChibidesk}
+          />
 
-      {/* Orientation Strip (One-Time Trailhead Map) */}
-      <OrientationStrip onSelectSection={(idx) => setActiveSection(idx)} />
+          {/* Circular Cursor Reveal Overlay Layer for 404 Page */}
+          <div
+            ref={revealOverlayRef}
+            aria-hidden="true"
+            role="presentation"
+            className="reveal-layer-overlay"
+            style={{ clipPath: "circle(0px at -200px -200px)" }}
+          >
+            <NotFoundPage
+              isRevealLayer={true}
+              onGoHome={handleGoHome}
+              onGoToChibidesk={handleGoToChibidesk}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          {/* ── Persistent Scroll Wheel Indicator (Middle 80vh, starting 20% down) ── */}
+          <ScrollWheel
+            activeSection={activeSection}
+            scrollProgress={scrollProgress}
+            isVisible={isWheelVisible}
+          />
 
-      {/* Section 01: Featured Projects */}
-      <ProjectsSection />
+          {/* ── Base Interactive Content Tree ────────────────────────────── */}
+          {/* Section 00: Hero Intro */}
+          <HeroSection />
 
-      {/* Section 02: Skills / Tech Stack */}
-      <SkillsSection />
+          {/* Orientation Strip (One-Time Trailhead Map) */}
+          <OrientationStrip onSelectSection={(idx) => setActiveSection(idx)} />
 
-      {/* Section 03: About Me */}
-      <AboutSection />
+          {/* Section 01: Featured Projects */}
+          <ProjectsSection />
 
-      {/* Section 04: Experience / Work History */}
-      <ExperienceSection />
+          {/* Section 02: Skills / Tech Stack */}
+          <SkillsSection />
 
-      {/* Section 05: Contact / Footer */}
-      <ContactSection formState={contactFormState} />
+          {/* Section 03: About Me */}
+          <AboutSection />
 
-      {/* Floating Scroll Reminder */}
-      <ScrollReminder />
+          {/* Section 04: Experience / Work History */}
+          <ExperienceSection />
 
-      {/* ── Circular Cursor Reveal Overlay Layer (Orange Tint Overlay) ─ */}
-      <div
-        ref={revealOverlayRef}
-        aria-hidden="true"
-        role="presentation"
-        className="reveal-layer-overlay"
-        style={{ clipPath: "circle(0px at -200px -200px)" }}
-      >
-        <ScrollWheel
-          activeSection={activeSection}
-          scrollProgress={scrollProgress}
-          isVisible={isWheelVisible}
-        />
-        <HeroSection isRevealLayer={true} />
-        <OrientationStrip />
-        <ProjectsSection />
-        <SkillsSection />
-        <AboutSection />
-        <ExperienceSection />
-        <ContactSection isRevealLayer={true} formState={contactFormState} />
-        <ScrollReminder />
-      </div>
+          {/* Section 05: Contact / Footer */}
+          <ContactSection formState={contactFormState} />
+
+          {/* Floating Scroll Reminder */}
+          <ScrollReminder />
+
+          {/* ── Circular Cursor Reveal Overlay Layer (Orange Tint Overlay) ─ */}
+          <div
+            ref={revealOverlayRef}
+            aria-hidden="true"
+            role="presentation"
+            className="reveal-layer-overlay"
+            style={{ clipPath: "circle(0px at -200px -200px)" }}
+          >
+            <ScrollWheel
+              activeSection={activeSection}
+              scrollProgress={scrollProgress}
+              isVisible={isWheelVisible}
+            />
+            <HeroSection isRevealLayer={true} />
+            <OrientationStrip />
+            <ProjectsSection />
+            <SkillsSection />
+            <AboutSection />
+            <ExperienceSection />
+            <ContactSection isRevealLayer={true} formState={contactFormState} />
+            <ScrollReminder />
+          </div>
+        </>
+      )}
     </div>
   );
 }

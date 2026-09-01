@@ -135,7 +135,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
   return (
     <section
       id="hero"
-      className="min-h-[100svh] sm:min-h-screen lg:h-screen lg:max-h-screen w-full flex flex-col justify-between relative overflow-x-hidden lg:overflow-hidden selection:bg-neutral-900 selection:text-[#F3EFE9]"
+      className="min-h-[100svh] sm:min-h-screen lg:h-screen lg:max-h-screen w-full flex flex-col justify-between relative overflow-x-hidden lg:overflow-hidden selection:bg-neutral-900 selection:text-[#F3EFE9] isolate"
       style={{ backgroundColor: "#F3EFE9", color: "#111111" }}
     >
       {/* ── Top Header ─────────────────────────────────────────── */}
@@ -177,12 +177,17 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
       </header>
 
       {/* ── DESKTOP MAIN HERO AREA (lg+) ───────────────────────── */}
-      <main className="hidden lg:flex w-full flex-1 min-h-0 flex-row items-stretch justify-between px-10 lg:px-14 pt-8 lg:pt-12 pb-0 relative z-10">
+      <main className="hidden lg:flex w-full flex-1 min-h-0 flex-row items-stretch justify-between px-10 lg:px-14 pt-8 lg:pt-12 pb-0 relative z-10 isolate">
         {/* Left Column: Typography & Bio */}
         <div className="flex-1 flex flex-col justify-end pb-5 sm:pb-7 lg:pb-8 z-20 max-w-2xl">
           <h1
-            className="pt-[160px] text-[#222222] font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal"
-            style={{ fontFamily: "'Oswald', sans-serif", "--delay": "100ms" } as React.CSSProperties}
+            className="text-white font-bold uppercase tracking-[-0.02em] leading-[0.86] text-[clamp(75px,12.8vw,190px)] select-none reveal mix-blend-difference"
+            style={{
+              fontFamily: "'Oswald', sans-serif",
+              color: "#FFFFFF",
+              mixBlendMode: "difference",
+              "--delay": "100ms",
+            } as React.CSSProperties}
           >
             AYUSH<br />ANAND
           </h1>
@@ -210,7 +215,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
         {/* Right Column: Circle Backdrop + Tight Foreground Portrait with Circular Color Reveal */}
         <div
-          className="flex-1 min-h-0 relative flex items-end justify-end h-full pointer-events-none reveal"
+          className="flex-1 min-h-0 relative flex items-end justify-end h-full pointer-events-none reveal z-10"
           style={{ "--delay": "180ms" } as React.CSSProperties}
         >
           {/* Background Dark Circle */}
@@ -219,8 +224,8 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             style={{
               width: "min(35.5vw, 58vh, 530px)",
               height: "min(35.5vw, 58vh, 530px)",
-              right: "clamp(-6px, 0.5vw, 20px)",
-              top: "calc(40% - 100px)",
+              right: "calc(clamp(-6px, 0.5vw, 20px) + 60px)",
+              top: "40%",
               transform: "translateY(-50%)",
               zIndex: 1,
             }}
@@ -232,8 +237,8 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
             className="portrait-container relative inline-flex items-end justify-center pointer-events-auto cursor-pointer select-none"
             style={{
               zIndex: 10,
-              marginRight: "calc(clamp(10px, 3.5vw, 55px) - 60px)",
-              marginBottom: "99px",
+              marginRight: "clamp(10px, 3.5vw, 55px)",
+              marginBottom: "-1px",
             }}
           >
             {/* Black and White Base Portrait */}
@@ -277,7 +282,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
         <div
           className="hero-backdrop-circle absolute rounded-full bg-[#1b1b1b] pointer-events-none transition-transform duration-700 z-1"
           style={{
-            width: "clamp(360px, 76vw,460px)",
+            width: "clamp(360px, 76vw, 460px)",
             height: "clamp(360px, 76vw, 460px)",
             right: "-90px",
             top: "10px",

@@ -195,6 +195,11 @@
   }
 }
 
+.reveal-layer-overlay .mix-blend-difference {
+  mix-blend-mode: normal !important;
+  color: #FF5722 !important;
+}
+
 /* Hero backdrop circle behind portrait turns solid orange */
 .reveal-layer-overlay .hero-backdrop-circle {
   background-color: #FF5722 !important;

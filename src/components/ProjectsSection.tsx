@@ -80,7 +80,8 @@ export default function ProjectsSection() {
           {projects.map((project, idx) => (
             <article
               key={project.title}
-              className="py-12 sm:py-16 first:pt-0 last:pb-12 group transition-colors reveal"
+              id={project.title.toLowerCase() === "chibidesk" ? "chibidesk-project" : undefined}
+              className="py-12 sm:py-16 first:pt-0 last:pb-12 group transition-colors reveal scroll-mt-20"
               style={{ "--delay": `${idx * 140}ms` } as React.CSSProperties}
             >
               <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
