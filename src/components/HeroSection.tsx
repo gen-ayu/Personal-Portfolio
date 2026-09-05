@@ -401,7 +401,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
             {/* Website Block */}
             <a
-              href="https://ayushanand.dev"
+              href="https://personal-portfolio-n8i9.vercel.app/"
               target="_blank"
               rel="noreferrer"
               className="flex items-center justify-end gap-2 group min-w-0"
@@ -417,7 +417,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
                   className="text-[#111111] text-[10.5px] sm:text-[12px] font-medium leading-none group-hover:text-[#FF5722] transition-colors truncate"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  ayushanand.dev
+                  Ayush-Anand Portfolio
                 </span>
               </div>
               <img
@@ -482,7 +482,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
 
             {/* Website Block */}
             <a
-              href="https://ayushanand.dev"
+              href="https://personal-portfolio-n8i9.vercel.app/"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-3 group"
@@ -503,7 +503,7 @@ export default function HeroSection({ isRevealLayer = false }: HeroSectionProps)
                   className="text-[#111111] text-[13px] sm:text-[13.5px] font-medium leading-none group-hover:text-[#FF5722] transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  ayushanand.dev
+                  Ayush-Anand Portfolio
                 </span>
               </div>
             </a>

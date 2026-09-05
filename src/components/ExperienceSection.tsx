@@ -1,14 +1,6 @@
 export default function ExperienceSection() {
   const experiences = [
     {
-      period: "2026",
-      role: "Microsoft Student Ambassador",
-      organization: "MICROSOFT / TECHNICAL COMMUNITY",
-      badge: "AMBASSADOR",
-      description:
-        "Recognized as a Microsoft Student Ambassador in 2026. Engaging with developer ecosystems, exploring modern cloud technologies, and supporting student developer learning initiatives.",
-    },
-    {
       period: "2025 – 2026",
       role: "Hackathon Competitor & Builder",
       organization: "INDEPENDENT TEAMS / COMPETITIVE",

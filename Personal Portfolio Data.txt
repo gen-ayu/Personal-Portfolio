@@ -16,7 +16,7 @@
 - **Name:** AYUSH ANAND (large display type)
 - **Subhead:** "Developer & Problem Solver"
 - **Description:** "I build digital experiences that are intentional, impactful, and built to last."
-- **Footer strip:** Email — hello@ayushanand.dev · Website — ayushanand.dev · Location — India
+- **Footer strip:** Email — ayush.anand.giri@gmail.com · Website — https://personal-portfolio-n8i9.vercel.app/ (Ayush-Anand Portfolio) · Location — India
 - **Bottom-right CTA box:** "Let's build something great together"
 - A/A monogram: removed (per earlier decision, empty center space)
 
@@ -122,8 +122,6 @@ Attended an AWS Cloud Computing workshop covering cloud fundamentals, AWS servic
 **Hackathons**
 Participated in 6+ hackathons, working in teams of 3–6 on software and hardware projects, typically competing against 50–100+ teams. Secured 4th place in one.
 
-**Microsoft Student Ambassador (2026)**
-Recognized as a Microsoft Student Ambassador in 2026.
 
 ---
 
